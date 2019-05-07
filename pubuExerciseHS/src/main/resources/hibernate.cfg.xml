@@ -17,7 +17,7 @@
         <property name="connection.password">123456</property> 
 
 		
-		<!-- SQL方言，設定是MySQL -->
+		<!-- SQL方言，設定是MsSQL -->
 <!-- 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property> -->
 <!-- 		<property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property> -->
 <!-- 		<property name="connection.url">jdbc:sqlserver://127.0.0.1:1433;DatabaseName=jspdb</property> -->
@@ -42,7 +42,7 @@
 
 		<!-- 3. 宣告程式使用的永續類別 -->
 		<!-- 使用 @nnotation 方式, 說明 Persistence Class 之 FQNC(類別全名, 含packageName) -->
-		<mapping class="model.CustomersBean"></mapping>
+		<mapping class="bean.Customers"></mapping>
 		<mapping class="model.ProductsBean"></mapping>
 		<mapping class="model.ShoppingCartsBean"></mapping>
 		

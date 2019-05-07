@@ -8,12 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import bean.Customers;
+
 @Entity
 @Table(name="shopping_carts")
 public class ShoppingCartsBean {
 	private Integer sc_id;
 //	private Integer ctm_id;
-	private CustomersBean ctmb;
+	private Customers ctmb;
 //	private Integer pd_id;
 	private ProductsBean pdb;
 	private Integer sc_price;
@@ -52,11 +54,11 @@ public class ShoppingCartsBean {
 */
 	@OneToOne
 	@JoinColumn(name="FK_CsutomersBean_id")
-	public CustomersBean getCtmb() {
+	public Customers getCtmb() {
 		return ctmb;
 	}
 
-	public void setCtmb(CustomersBean ctmb) {
+	public void setCtmb(Customers ctmb) {
 		this.ctmb = ctmb;
 	}
 

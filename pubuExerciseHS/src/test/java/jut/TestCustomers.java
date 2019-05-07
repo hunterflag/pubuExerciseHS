@@ -1,6 +1,5 @@
 package jut;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,12 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import bean.Customers;
-import model.ProductsBean;
-import model.ShoppingCartsBean;
+import dao.CustomersDao;
+import dao.impl.CustomersDaoImpl;
+import test.HunterDebug;
 import util.HibernateUtils;
 
-public class JunitCustomersBean {
-
+public class TestCustomers {
 	private SessionFactory factory;
 	private Session session;
 	private Transaction tx;
@@ -35,26 +34,25 @@ public class JunitCustomersBean {
 
 	@Test
 	public void test() {
-//		fail("Not yet implemented");
-		Logger log = Logger.getLogger(JunitCustomersBean.class);
-		
 		Customers ctmBean= session.get(Customers.class, 1);
 		System.out.println("=========================================");
 		System.out.println("ctm_account: " + ctmBean.getCtm_account());
-		log.debug("Hello Log4j");
+		System.out.println("ctm: " + ctmBean);
 		System.out.println("=========================================");
+	}
+	
+	@Test
+	public void testGetByAcc() {
+		CustomersDao dao = new CustomersDaoImpl();
+		String account = "Tester0";
 
-		ProductsBean pdBean= session.get(ProductsBean.class, 1);
-		System.out.println("=========================================");
-		System.out.println("pd_name: " + pdBean.getPd_name());
-		System.out.println("=========================================");
-
-		ShoppingCartsBean scBean= session.get(ShoppingCartsBean.class, 1);
-		System.out.println("=========================================");
-		System.out.println("sc_id: " + scBean.getSc_id());
-		System.out.println("=========================================");
-//		System.out.println("ctm_account: " + scBean.getCtmb().getCtm_account());
-		
+		Customers ctm =null;
+		if (dao.isAccExist(account)) {
+			ctm = dao.getByAcc(account);
+			System.out.println(account + " 帳號的密碼是: " + ctm.getCtm_password());
+		}else {
+			System.out.println("沒有" + account + "帳號");
+		}
 	}
 
 }

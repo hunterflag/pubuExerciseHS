@@ -1,4 +1,4 @@
-package model;
+package bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,17 +8,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="customers")
-public class CustomersBean {
+public class Customers {
 	private Integer ctm_id;
 	private String ctm_account;
 	private String ctm_password;
 	
-	public CustomersBean() {
+	public Customers() {
 		super();
 	}
 
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getCtm_id() {
@@ -45,4 +43,11 @@ public class CustomersBean {
 		this.ctm_password = ctm_password;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomersBean [ctm_id=" + ctm_id + ", ctm_account=" + ctm_account + ", ctm_password=" + ctm_password
+				+ "]";
+	}
+
+	
 }
