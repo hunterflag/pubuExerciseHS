@@ -3,12 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>tw.com.pubu.hunter</groupId>
-	<artifactId>pubuExerciseJS</artifactId>
+	<artifactId>pubuExerciseHS</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pubuExerciseJS Maven Webapp</name>
+	<name>pubuExerciseHS Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
+		<c3p0.version>0.9.5.2</c3p0.version>
 		<compiler.version>1.8</compiler.version>
 		<hibernate.version>5.4.2.Final</hibernate.version>
 		<junit.version>4.12</junit.version>
@@ -43,6 +44,13 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
+		</dependency>
+
+		<!-- c3p0 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>${c3p0.version}</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -95,9 +103,9 @@
 			<version>${log4j.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
-		<finalName>pubuExerciseJS</finalName>
+		<finalName>pubuExerciseHS</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -110,5 +118,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

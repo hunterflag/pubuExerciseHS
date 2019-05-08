@@ -4,7 +4,7 @@ $(document).ready(function(){
 	});
 
 	$("#btnLogin").click(function(){
-		window.open('login.jsp');
+		window.open('loginForm');
 		todo("btnLogin");
 	});
 	
