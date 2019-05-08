@@ -10,7 +10,6 @@ import org.junit.Test;
 import bean.Customers;
 import dao.CustomersDao;
 import dao.impl.CustomersDaoImpl;
-import test.HunterDebug;
 import util.HibernateUtils;
 
 public class TestCustomers {
