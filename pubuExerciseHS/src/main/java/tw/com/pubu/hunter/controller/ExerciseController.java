@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import test.HunterDebug;
+import tw.com.pubu.hunter.bean.MemberBean;
 import tw.com.pubu.hunter.enums.LoginResult;
+import tw.idv.hunter.tool.HunterDebug;
 
 @Controller
 public class ExerciseController {
@@ -34,15 +35,17 @@ public class ExerciseController {
 		LoginResult result = LoginResult.Error;
 		
 		//取得傳入值
-		HunterDebug.ShowMessage("account", account);
-		HunterDebug.ShowMessage("password", password);
+		HunterDebug.showMessage("account", account);
+		HunterDebug.showMessage("password", password);
 		
 		if (account.equals("")) result = LoginResult.AccountIsEmpty;
 		else if (password.equals("")) result = LoginResult.AccountIsEmpty;
 
 		//取得資料庫相同帳號
-/*
+		
+		/*
 		//JDBC
+		
 			if (rs.next()) {//有此帳號
 				if (loginPwd.equals(rs.getString("ctm_password"))) {
 					result = LoginResult.OK;
@@ -63,7 +66,7 @@ public class ExerciseController {
 				}
 			}
 		}
-*/
+		*/
 		//回傳結果
 		System.out.println("loginResult: " + result);
 		model.addAttribute("loginResult", result);

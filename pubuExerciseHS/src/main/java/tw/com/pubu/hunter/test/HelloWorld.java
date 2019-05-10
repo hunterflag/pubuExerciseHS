@@ -1,4 +1,4 @@
-package tw.idv.hunter.test.helloworld;
+package tw.com.pubu.hunter.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;

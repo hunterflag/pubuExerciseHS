@@ -1,4 +1,4 @@
-package util;
+package tw.com.pubu.hunter.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -10,10 +10,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtils {
 
 	private static SessionFactory sessionFactory = buildSessionFactory();
-//	private static ServiceRegistry serviceRegistry;
-	static {
-		
-	}
 	private static SessionFactory buildSessionFactory() {
 		try {
 			// 由組態檔(hibernate.cfg.xml)內的資訊來建立SessionFactory物件
@@ -38,6 +34,9 @@ public class HibernateUtils {
 	}
 
 	public static void shutdown() {
+		getSessionFactory().close();
+	}
+	public static void close() {
 		getSessionFactory().close();
 	}
 

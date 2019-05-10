@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("tw.com.pubu.hunter") //XXX 全部 packageage 怎麼寫?
+@ComponentScan("tw.com.pubu.hunter") //XXX 全部 package 怎麼寫?
 /*
 // Java 1.8 後 Deprecated 
 //@SuppressWarnings("deprecation")  
