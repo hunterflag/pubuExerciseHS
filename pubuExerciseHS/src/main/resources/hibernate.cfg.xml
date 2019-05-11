@@ -11,7 +11,7 @@
 <!--         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property> 
          <!-- JDBC URL & --> 
-        <property name="connection.url">jdbc:mysql://localhost:3306/pubu_exercise?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Taipei</property> 
+        <property name="connection.url">jdbc:mysql://localhost:3306/pubuEx2?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Taipei</property> 
         <!-- 資料庫使用者、密碼 --> 
         <property name="connection.username">root</property> 
         <property name="connection.password">123456</property> 
@@ -28,13 +28,13 @@
 		<!-- 2. 其他與資料存取有關的設定 -->
 		<!-- 自動產生資料庫的Schema -->
 		<property name="hbm2ddl.auto">update</property>
+<!-- 		<property name="hbm2ddl.auto">create</property> -->
 		<!-- 顯示實際操作資料庫時的SQL -->
 		<property name="show_sql">true</property>
 		<!-- 將顯示的SQL排版，方便觀看 -->
 		<property name="format_sql">true</property>
-
+<!-- 		for getCurrentSession() -->
 		<property name="hibernate.current_session_context_class">thread</property>
-
 
 		<!-- hibernate 相關效能設定 -->
 		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
@@ -42,9 +42,9 @@
 
 		<!-- 3. 宣告程式使用的永續類別 -->
 		<!-- 使用 @nnotation 方式, 說明 Persistence Class 之 FQNC(類別全名, 含packageName) -->
-		<mapping class="bean.Customers"></mapping>
-		<mapping class="model.ProductsBean"></mapping>
-		<mapping class="model.ShoppingCartsBean"></mapping>
+		<mapping class="tw.com.pubu.hunter.bean.MemberBean"></mapping>
+		<mapping class="tw.com.pubu.hunter.bean.ProductBean"></mapping>
+		<mapping class="tw.com.pubu.hunter.bean.ShoppingCartBean"></mapping>
 		
 	</session-factory>
 </hibernate-configuration>

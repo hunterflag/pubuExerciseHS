@@ -15,12 +15,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import tw.idv.hunter.tool.HunterDebug;
+
 @Configuration
 @EnableTransactionManagement
 public class RootAppConfig {
-	//Database 連線資訊
+	//DataSource 資料庫連線資訊
 	@Bean
 	public DataSource dataSource() {
+		HunterDebug.traceMessage();
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		ds.setUser("root");
 		ds.setPassword("123456");
@@ -38,21 +41,27 @@ public class RootAppConfig {
 	//SessionFactory
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
+		HunterDebug.traceMessage();
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean(); 
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan(new String[] {"tw.com.pubu.hunter"});
+		factory.setPackagesToScan(new String[]{
+					"tw.com.pubu.hunter"
+				});
+		factory.setHibernateProperties(additionalProperties());
 		return factory;
 	}	
 	
 	@Bean(name="transactionManager")
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+		HunterDebug.traceMessage();
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
 		txManager.setSessionFactory(sessionFactory);
 		return txManager;
 	}
 	
 	private Properties additionalProperties() {
+		HunterDebug.traceMessage();
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", org.hibernate.dialect.MySQL8Dialect.class);
 		properties.put("hibernate.show_sql", Boolean.TRUE);
