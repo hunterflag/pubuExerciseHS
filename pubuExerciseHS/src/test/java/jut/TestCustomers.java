@@ -7,9 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bean.Customers;
 import dao.CustomersDao;
-import dao.impl.CustomersDaoImpl;
+import tw.com.pubu.hunter.bean.Customers;
+import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
 import util.HibernateUtils;
 
 public class TestCustomers {

@@ -22,12 +22,12 @@ public class TestDao {
 		logger.info(list.size());
 		for(MemberBean element : list) {
 			logger.info(element.getNo());
-		
+		/*
 		ShoppingCartDao dao = new ShoppingCartDaoImpl();
 		List<ShoppingCartBean> list = dao.getAlls();
 		logger.error("TEST");			
 		logger.info("TEST");			
-		
+		*/
 		}
 		/*
 		for(ShoppingCartBean item : list) {

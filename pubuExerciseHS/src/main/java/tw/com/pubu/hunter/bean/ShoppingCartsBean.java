@@ -1,4 +1,4 @@
-package model;
+package tw.com.pubu.hunter.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,16 +8,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import bean.Customers;
-
 @Entity
 @Table(name="shopping_carts")
 public class ShoppingCartsBean {
 	private Integer sc_id;
-//	private Integer ctm_id;
-	private Customers ctmb;
-//	private Integer pd_id;
-	private ProductsBean pdb;
+	private CustomersBean ctmBean;
+	private ProductsBean pdtBean;
 	private Integer sc_price;
 	private Integer sc_number;
 
@@ -53,23 +49,23 @@ public class ShoppingCartsBean {
 	}
 */
 	@OneToOne
-	@JoinColumn(name="FK_CsutomersBean_id")
-	public Customers getCtmb() {
-		return ctmb;
+	@JoinColumn(name="FK_CsutomersBean_Id")
+	public CustomersBean getCtmBean() {
+		return ctmBean;
 	}
 
-	public void setCtmb(Customers ctmb) {
-		this.ctmb = ctmb;
+	public void setCtmBean(CustomersBean ctmBean) {
+		this.ctmBean = ctmBean;
 	}
 
 	@OneToOne
-	@JoinColumn(name="FK_ProductsBean_id")
-	public ProductsBean getPdb() {
-		return pdb;
+	@JoinColumn(name="FK_ProductsBean_Id")
+	public ProductsBean getPdtBean() {
+		return pdtBean;
 	}
 
-	public void setPdb(ProductsBean pdb) {
-		this.pdb = pdb;
+	public void setPdtBean(ProductsBean pdtBean) {
+		this.pdtBean = pdtBean;
 	}
 
 
@@ -87,6 +83,12 @@ public class ShoppingCartsBean {
 
 	public void setSc_number(Integer sc_number) {
 		this.sc_number = sc_number;
+	}
+
+	@Override
+	public String toString() {
+		return "ShoppingCartsBean [sc_id=" + sc_id + ", ctmBean=" + ctmBean + ", pdtBean=" + pdtBean + ", sc_price="
+				+ sc_price + ", sc_number=" + sc_number + "]";
 	}
 	
 	

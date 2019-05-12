@@ -1,4 +1,4 @@
-package model;
+package tw.com.pubu.hunter.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +41,11 @@ public class ProductsBean {
 
 	public void setPd_price(Double pd_price) {
 		this.pd_price = pd_price;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductsBean [pd_id=" + pd_id + ", pd_name=" + pd_name + ", pd_price=" + pd_price + "]";
 	}
 	
 	

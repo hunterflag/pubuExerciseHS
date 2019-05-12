@@ -41,32 +41,6 @@ public class ExerciseController {
 		if (account.equals("")) result = LoginResult.AccountIsEmpty;
 		else if (password.equals("")) result = LoginResult.AccountIsEmpty;
 
-		//取得資料庫相同帳號
-		
-		/*
-		//JDBC
-		
-			if (rs.next()) {//有此帳號
-				if (loginPwd.equals(rs.getString("ctm_password"))) {
-					result = LoginResult.OK;
-					HttpSession session = request.getSession();
-					session.setAttribute("loginName", account);
-					session.setAttribute("loginId", rs.getInt("ctm_id"));
-				}else result = LoginResult.AccountNotExist;
-			} else result = LoginResult.AccountNotExist;
-				
-		}catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(conn!=null) {
-				try {
-					conn.close();
-				}catch(SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		*/
 		//回傳結果
 		System.out.println("loginResult: " + result);
 		model.addAttribute("loginResult", result);

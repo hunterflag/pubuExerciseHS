@@ -8,9 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bean.Customers;
-import model.ProductsBean;
-import model.ShoppingCartsBean;
+import tw.com.pubu.hunter.bean.Customers;
+import tw.com.pubu.hunter.bean.ProductsBean;
+import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 import util.HibernateUtils;
 
 public class JunitCustomersBean {

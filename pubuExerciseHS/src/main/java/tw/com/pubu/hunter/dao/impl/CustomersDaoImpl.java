@@ -1,4 +1,4 @@
-package dao.impl;
+package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
 
@@ -7,34 +7,59 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import bean.Customers;
-import dao.CustomersDao;
-import test.HunterDebug;
+import tw.com.pubu.hunter.bean.CustomersBean;
+import tw.com.pubu.hunter.dao.CustomersDao;
 import util.HibernateUtils;
 
 public class CustomersDaoImpl implements CustomersDao {
 	SessionFactory factory;
 	public CustomersDaoImpl() {
-		HunterDebug.ShowMessage(CustomersDaoImpl.class.toString(), "Constructor()");
 		factory = HibernateUtils.getSessionFactory();
 	}
 	
 	public void closeFactory() {
-		HunterDebug.ShowMessage(CustomersDaoImpl.class.toString(), "closeFactory()");
 		factory.close();
 	}
+	/**
+	 * @author chenhuanzhang
+	 * @return null 表示無此帳號
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public CustomersBean getByAccount(String account) {
+		CustomersBean result = null;
+		//輸入資料檢查
+		if(account.isEmpty()) return result;			//沒輸入
+		if (!isAccountExist(account)) return result;	//無此帳號
+		
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
+			Query<CustomersBean> query = session.createQuery(qryHqlStr);
+			query.setParameter("account", account);
+			result = (CustomersBean) query.getSingleResult();
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+	
 	
 	@SuppressWarnings("unchecked")
-	public boolean isAccExist(String account) {
+	public boolean isAccountExist(String account) {
 		boolean result = false;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			String qryStr = "FROM Customers WHERE ctm_account = :account";
-			Query<Customers> query = session.createQuery(qryStr);
+			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
+			Query<CustomersBean> query = session.createQuery(qryHqlStr);
 			query.setParameter("account", account);
-			List<Customers> list = query.getResultList();
+			List<CustomersBean> list = query.getResultList();
 			if (list.size() > 0) result = true;
 			tx.commit();
 		}catch(Exception e) {
@@ -44,25 +69,8 @@ public class CustomersDaoImpl implements CustomersDao {
 		return result;
 	}
 
+	/*
 	@SuppressWarnings("unchecked")
-	@Override
-	public Customers getByAcc(String qryAcc) {
-		Customers result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			String qryStr = "FROM Customers WHERE ctm_account = :account";
-			Query<Customers> query = session.createQuery(qryStr);
-			query.setParameter("account", qryAcc);
-			result = (Customers) query.getSingleResult();
-			tx.commit();
-		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
-			System.out.println(e.getMessage());
-		}
-		return result;
-	}
 	
 	@Override
 	public Customers getById(int id) {
@@ -97,4 +105,5 @@ public class CustomersDaoImpl implements CustomersDao {
 		}
 		return result;
 	}
+	*/
 }

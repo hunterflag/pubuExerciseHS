@@ -6,6 +6,6 @@ public enum LoginResult {
 	AccountNotExist, 
 	AccountSuspended, 
 	PasswordIsEmpty,
-	PasswordNOtCorrect, 
+	PasswordNotCorrect, 
 	Error 
 }
