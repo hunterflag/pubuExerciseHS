@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.service.impl;
+package unUsed;
 
 import java.util.List;
 
@@ -6,10 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import tw.com.pubu.hunter.bean.MemberBean;
-import tw.com.pubu.hunter.dao.MemberDao;
-import tw.com.pubu.hunter.dao.impl.MemberDaoImpl;
-import tw.com.pubu.hunter.service.MemberService;
 import tw.idv.hunter.tool.HunterDebug;
 
 public class MemberServiceImpl implements MemberService {

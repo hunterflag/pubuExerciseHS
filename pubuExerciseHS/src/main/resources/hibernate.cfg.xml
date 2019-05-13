@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
 <hibernate-configuration>
 	<session-factory>
 		<!-- 1. SQL方言與提供連結資料庫所需資訊(透過JDBC API來連結)之設定方式 -->	
@@ -47,6 +48,7 @@
 <!-- 		pubu_exercise -->
 		<mapping class="tw.com.pubu.hunter.bean.CustomersBean"></mapping>
 		<mapping class="tw.com.pubu.hunter.bean.ProductsBean"></mapping>
+		<mapping class="tw.com.pubu.hunter.bean.ShoppingCartsBean"></mapping>
 <!-- 		pubuEx2 -->
 <!-- 		<mapping class="tw.com.pubu.hunter.bean.MemberBean"></mapping> -->
 <!-- 		<mapping class="tw.com.pubu.hunter.bean.ProductBean"></mapping> -->

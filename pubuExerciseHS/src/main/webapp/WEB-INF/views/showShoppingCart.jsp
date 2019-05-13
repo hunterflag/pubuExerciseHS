@@ -23,36 +23,22 @@
 		<table border='1'>
 		<TR>
 		<TH><TH>客戶<TH>品名<TH>售價<TH>數量<TH>小計
-		<!-- 
-		<c:set var="total_price" value=0 />
+<%-- 		<c:set var="total_price" value=0 /> --%>
 		<c:if test="${scs.size()>0}">
 			<c:forEach items="${scs}" var="sc" >
-				<TR>
-				<TD>${pdt.pd_id}
-				<TD>${pdt.pd_name}
-				<TD>${pdt.pd_price}
-				<TD><button onclick="addToShoppingCart(${pdt.pd_id}, ${pdt.pd_price})">加入</button>
-				out.println("<TR>");
-				out.println("<TD>" + "<button type='button' onclick='removeFromShoppingCart(" + rs.getString("pd.pd_id") + ")'>移除</button>");
-				out.println("<TD><span id='ctm_id' value='" + ctm_id + "'/>" + rs.getString("ctm.ctm_account") + "</span>");
-				out.println("<TD><span id='pd_id' value='" + rs.getString("pd.pd_id") + "'/>" + rs.getString("pd.pd_name") + "</span>");
-				out.println("<TD>" + rs.getString("sc.sc_price"));
-				out.println("<TD><input id='sc_number' type='number' min=1  value=" + rs.getString("sc.sc_number") +" />"
-						   +"<button type='button' onclick='updateShoppingCart(" + ctm_id + ", "
-							   													 + rs.getString("pd.pd_id")
-							   												 	 + ")'>修改</button>");
-				int sub_total_price = rs.getInt("sc.sc_price")*rs.getInt("sc.sc_number"); 
-				out.println("<TD>" + sub_total_price );
-				out.println("</TR>");
-		
-				total_price = total_price + sub_total_price;
+				<TR><TD><button type="button" onclick="removeFromShoppingCart(${sc.pdtBean.pd_id});">移除</button>
+					<TD><span id='ctm_id' value='${sc.ctmBean.ctm_id}'> ${sc.ctmBean.ctm_accoun} </span>
+					<TD><span id='pd_id' value='${sc.pdtBean.pd_id}'> ${sc.pdtBean.pd_name }</span>
+					<TD>${sc.sc_price}
+					<TD><input id='sc_number' type='number' min=1  value=${sc.sc_number}/>
+						<button type='button' onclick='updateShoppingCart(${sc.ctmBean.ctm_id}, ${sc.pdtBean.pd_id}, ${sc.sc_number});'>修改</button>
+					<c:set> sub_total_price = rs.getInt("sc.sc_price")*rs.getInt("sc.sc_number"); 
+					</c:set> 
+					<TD> ${sub_total_price}
+				</TR>total_price = total_price + sub_total_price;
 			</c:forEach>
 		</c:if>
-		
-			}
-			out.println("<TR><TH colspan=4>總價 <TD colspan=2>" +total_price );
-		%>
-		 -->
+				<TR><TH colspan=4>總價 <TD colspan=2> ${total_price}
 		</table>
 
 		<button id="btnClear">全部清除</button>

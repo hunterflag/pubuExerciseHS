@@ -1,8 +1,6 @@
-package tw.com.pubu.hunter.dao;
+package unUsed;
 
 import java.util.List;
-
-import tw.com.pubu.hunter.bean.MemberBean;
 
 public interface MemberDao {
 	public Object insert(MemberBean insObj);

@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.dao.impl;
+package unUsed;
 
 import java.util.List;
 
@@ -6,8 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import tw.com.pubu.hunter.bean.ShoppingCartBean;
-import tw.com.pubu.hunter.dao.ShoppingCartDao;
 import tw.com.pubu.hunter.enums.RecordStatus;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 

@@ -17,6 +17,14 @@ public class CustomersBean {
 		super();
 	}
 	
+	public CustomersBean(String ctm_account, String ctm_password) {
+		super();
+		this.ctm_account = ctm_account;
+		this.ctm_password = ctm_password;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getCtm_id() {

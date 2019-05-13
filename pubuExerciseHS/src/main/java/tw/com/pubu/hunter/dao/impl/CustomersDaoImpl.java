@@ -76,25 +76,29 @@ public class CustomersDaoImpl implements CustomersDao {
 		return id;
 	}
 	
-	/*
 	@SuppressWarnings("unchecked")
 	
 	@Override
-	public Customers getById(int id) {
-		Customers ctmb = null;
+	public CustomersBean getById(Integer id) {
+		CustomersBean bean = null;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			ctmb = (Customers) session.get(Customers.class, id);
+			bean = (CustomersBean) session.get(CustomersBean.class, id);
 			tx.commit();
 		}catch(Exception e) {
 			if(tx!=null) tx.rollback();
 			System.out.println(e.getMessage());
 		}
-		return ctmb;
+		return bean;
 	}
 
+	public CustomersBean getById(int id) {
+		return getById(Integer.valueOf(id));
+	}
+
+	/*
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customers> getAlls() {

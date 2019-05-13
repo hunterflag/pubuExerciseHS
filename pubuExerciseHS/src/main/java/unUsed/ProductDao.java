@@ -1,8 +1,6 @@
-package tw.com.pubu.hunter.dao;
+package unUsed;
 
 import java.util.List;
-
-import tw.com.pubu.hunter.bean.ProductBean;
 
 public interface ProductDao {
 	public Object insert(ProductBean insObj);

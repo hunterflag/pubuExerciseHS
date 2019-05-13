@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.bean;
+package unUsed;
 
 import java.sql.Timestamp;
 import java.util.Date;

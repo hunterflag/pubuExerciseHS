@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.bean;
+package unUsed;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

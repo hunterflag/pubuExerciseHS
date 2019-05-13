@@ -7,8 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import dao.CustomersDao;
-import tw.com.pubu.hunter.bean.Customers;
+import tw.com.pubu.hunter.bean.CustomersBean;
+import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
 import util.HibernateUtils;
 
@@ -33,7 +33,7 @@ public class TestCustomers {
 
 	@Test
 	public void test() {
-		Customers ctmBean= session.get(Customers.class, 1);
+		CustomersBean ctmBean= session.get(CustomersBean.class, 1);
 		System.out.println("=========================================");
 		System.out.println("ctm_account: " + ctmBean.getCtm_account());
 		System.out.println("ctm: " + ctmBean);
@@ -43,11 +43,11 @@ public class TestCustomers {
 	@Test
 	public void testGetByAcc() {
 		CustomersDao dao = new CustomersDaoImpl();
-		String account = "Tester0";
+		String account = "Tester1";
 
-		Customers ctm =null;
-		if (dao.isAccExist(account)) {
-			ctm = dao.getByAcc(account);
+		CustomersBean ctm =null;
+		if (dao.isAccountExist(account)) {
+			ctm = dao.getByAccount(account);
 			System.out.println(account + " 帳號的密碼是: " + ctm.getCtm_password());
 		}else {
 			System.out.println("沒有" + account + "帳號");

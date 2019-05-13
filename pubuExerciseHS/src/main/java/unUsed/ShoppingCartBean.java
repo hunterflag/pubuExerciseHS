@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.bean;
+package unUsed;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -7,10 +7,9 @@ $(document).ready(function(){
 	});
 });
 
-function addToShoppingCart(ctm_id, pd_id, pd_price){
-	var urlString = "AddShoppingCart.do?ctm_id" + ctm_id 
-									+ "&pd_id="	+ pd_id 
-									+ "&pd_price=" + pd_price;
+function addToShoppingCart(ctm_id, pd_id){
+	
+	var urlString = "addToShoppingCart?ctm_id=" + ctm_id + "&pd_id="	+ pd_id; 
 	
 //	$.post(urlString, function(data, status){
 	$.get(urlString, function(data, status){

@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import tw.com.pubu.hunter.bean.MemberBean;
 import tw.com.pubu.hunter.bean.ProductsBean;
+import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 import tw.com.pubu.hunter.enums.LoginResult;
 import tw.com.pubu.hunter.service.CustomersService;
 import tw.com.pubu.hunter.service.ProductsService;
+import tw.com.pubu.hunter.service.ShoppingCartsService;
 import tw.com.pubu.hunter.service.impl.CustomersServiceImpl;
 import tw.com.pubu.hunter.service.impl.ProductsServiceImpl;
+import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 import tw.idv.hunter.tool.HunterDebug;
+import unUsed.MemberBean;
 
 @Controller
 public class ExerciseController {
@@ -82,17 +85,31 @@ public class ExerciseController {
 	@RequestMapping(value="/addToShoppingCart", method=RequestMethod.GET)
 	public String addToShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="ctm_id", defaultValue="0") int ctm_id,
-			@RequestParam(value="pd_id", defaultValue="0") int pd_id,
-			@RequestParam(value="pd_price", defaultValue="0") int pd_price
+			@RequestParam(value="pd_id", defaultValue="0") int pd_id
+			) {
+		HunterDebug.showKeyValue("ctm_id", ctm_id);
+		HunterDebug.showKeyValue("pd_id", pd_id);
+		
+		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		service.add(ctm_id, pd_id);
+		
+		return "";
+	}
+	
+	
+	@RequestMapping(value="/showShoppingCart", method=RequestMethod.GET)
+	public String showShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="ctm_id", defaultValue="0") int ctm_id
 			) {
 		HunterDebug.showKeyValue("ctm_id", ctm_id);
 		
-		ProductsService service = new ProductsServiceImpl();
-		List<ProductsBean> list = service.getAlls();
-		
-		model.addAttribute("pdts", list);
+		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
+		System.out.println(list);
+		model.addAttribute("scs", list);
 		return "showShoppingCart";
 	}
+	
 	
 	
 	

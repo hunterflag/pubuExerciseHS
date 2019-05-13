@@ -1,11 +1,7 @@
-package tw.com.pubu.hunter.init;
+package unUsed;
 
-import tw.com.pubu.hunter.service.MemberService;
-import tw.com.pubu.hunter.service.ProductService;
-import tw.com.pubu.hunter.service.ShoppingCartService;
-import tw.com.pubu.hunter.service.impl.MemberServiceImpl;
-import tw.com.pubu.hunter.service.impl.ProductServiceImpl;
-import tw.com.pubu.hunter.service.impl.ShoppingCartServiceImpl;
+import tw.com.pubu.hunter.service.ShoppingCartsService;
+import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 import tw.idv.hunter.tool.HunterDebug;
 
 public class CreateData {
@@ -26,11 +22,11 @@ public class CreateData {
 		}
 		
 		//insert new ShoppingCart
-		ShoppingCartService shoppingCartService = new ShoppingCartServiceImpl();
+		ShoppingCartsService shoppingCartService = new ShoppingCartsServiceImpl();
 		for (int i=1; i<=4; i++) {
 			for(int j=1; j<=i; j++) {
-				int no = shoppingCartService.add(i, j, i);
-				HunterDebug.showKeyValue("newID in shoppingCart", no);
+//				int no = shoppingCartService.add(i, j, i);
+//				HunterDebug.showKeyValue("newID in shoppingCart", no);
 			}
 		}
 		

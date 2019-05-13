@@ -1,6 +1,4 @@
-package tw.com.pubu.hunter.service;
-
-import tw.com.pubu.hunter.bean.MemberBean;
+package unUsed;
 
 public interface MemberService {
 	public int add(String account, String password);

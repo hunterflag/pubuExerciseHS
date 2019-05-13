@@ -2,17 +2,18 @@ package tw.com.pubu.hunter.service;
 
 import java.util.List;
 
-import tw.com.pubu.hunter.bean.ShoppingCartBean;
+import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 
-public interface ShoppingCartService {
-	public int add(int memberId, int productId, int number);
-	public List<ShoppingCartBean> getItemsByMember(int memberId);
+public interface ShoppingCartsService {
+	public int add(int memberId, int productId);
+//	public boolean isItemExist(int memberId, int productId);
+	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId);
 //	public int confirmToOrder(int memberId);
-//	public boolean delete(String account);
+//	public boolean delete(int ctmId);
 //	public boolean isAccExist(String account);
 //	public MemberBean getByAcc(String account);
 //	public MemberBean getByNo(int no);
-//	public boolean update(MemberBean mb);
+//	public boolean update(ShoppingCartsBean updObj);
 
 
 }

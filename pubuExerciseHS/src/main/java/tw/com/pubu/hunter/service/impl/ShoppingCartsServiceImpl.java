@@ -2,36 +2,39 @@ package tw.com.pubu.hunter.service.impl;
 
 import java.util.List;
 
-import tw.com.pubu.hunter.bean.MemberBean;
-import tw.com.pubu.hunter.bean.ProductBean;
-import tw.com.pubu.hunter.bean.ShoppingCartBean;
-import tw.com.pubu.hunter.dao.ShoppingCartDao;
-import tw.com.pubu.hunter.dao.impl.MemberDaoImpl;
-import tw.com.pubu.hunter.dao.impl.ProductDaoImpl;
-import tw.com.pubu.hunter.dao.impl.ShoppingCartDaoImpl;
-import tw.com.pubu.hunter.service.ShoppingCartService;
+import tw.com.pubu.hunter.bean.CustomersBean;
+import tw.com.pubu.hunter.bean.ProductsBean;
+import tw.com.pubu.hunter.bean.ShoppingCartsBean;
+import tw.com.pubu.hunter.dao.ShoppingCartsDao;
+import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
+import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
+import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
+import tw.com.pubu.hunter.service.ShoppingCartsService;
 
-public class ShoppingCartServiceImpl implements ShoppingCartService {
+public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 
 	@Override
-	public int add(int memberId, int productId, int number){
-		MemberBean mb = new MemberDaoImpl().getByPk(memberId);
-		ProductBean pb = new ProductDaoImpl().getByPk(productId);
+	public int add(int memberId, int productId){
+		ShoppingCartsDao dao = new ShoppingCartsDaoImpl();
+		//項目已存在, 不再重複加入
+		if(dao.isItemExist(memberId, productId)) return 0;
 		
-		ShoppingCartDao dao = new ShoppingCartDaoImpl();
-		double price = (int)(pb.getPrice() / 100) * 100;
-		ShoppingCartBean newObj = new ShoppingCartBean(mb, pb, number, price);
+		//項目不存在, 新增項目
+		CustomersBean cBean = new CustomersDaoImpl().getById(memberId);
+		ProductsBean pBean = new ProductsDaoImpl().getById(productId);
+		double price = (int)(pBean.getPd_price() / 100) * 100;
+		ShoppingCartsBean newObj = new ShoppingCartsBean(cBean, pBean, price);
 		Object pk = dao.insert(newObj);
-		int newPk = Integer.valueOf(newObj.getPk().toString());
 		
-		return newPk;
+		return Integer.valueOf(pk.toString());
 	}
 
-	public List<ShoppingCartBean> getItemsByMember(int memberId){
-		List<ShoppingCartBean> list = null;
-		
+	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId){
+		ShoppingCartsDao dao = new ShoppingCartsDaoImpl();
+		List<ShoppingCartsBean> list = dao.getItemsByCustomer(ctmId);
 		return list;
 	}
+	
 //	public int confirmToOrder(int memberId) {
 //		int number = 0;	//訂購商品種類數
 //		//訂單 1: 先建立訂單編號、取得新增訂單的 oid

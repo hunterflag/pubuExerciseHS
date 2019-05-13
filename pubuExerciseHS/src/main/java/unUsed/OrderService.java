@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.service;
+package unUsed;
 
 public interface OrderService {
 	public int add(int memberId, double price);

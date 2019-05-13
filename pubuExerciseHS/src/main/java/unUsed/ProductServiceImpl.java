@@ -1,9 +1,4 @@
-package tw.com.pubu.hunter.service.impl;
-
-import tw.com.pubu.hunter.bean.ProductBean;
-import tw.com.pubu.hunter.dao.ProductDao;
-import tw.com.pubu.hunter.dao.impl.ProductDaoImpl;
-import tw.com.pubu.hunter.service.ProductService;
+package unUsed;
 
 public class ProductServiceImpl implements ProductService {
 

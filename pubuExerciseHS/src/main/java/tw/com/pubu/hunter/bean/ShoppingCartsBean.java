@@ -14,13 +14,23 @@ public class ShoppingCartsBean {
 	private Integer sc_id;
 	private CustomersBean ctmBean;
 	private ProductsBean pdtBean;
-	private Integer sc_price;
-	private Integer sc_number;
+	private Integer sc_number = 1;
+	private Double sc_price;
 
 	public ShoppingCartsBean() {
 		super();
 	}
 	
+	
+	public ShoppingCartsBean(CustomersBean ctmBean, ProductsBean pdtBean, Double sc_price) {
+		super();
+		this.ctmBean = ctmBean;
+		this.pdtBean = pdtBean;
+		this.sc_price = sc_price;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSc_id() {
@@ -48,8 +58,9 @@ public class ShoppingCartsBean {
 		this.pd_id = pd_id;
 	}
 */
+
 	@OneToOne
-	@JoinColumn(name="FK_CsutomersBean_Id")
+	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {
 		return ctmBean;
 	}
@@ -59,7 +70,7 @@ public class ShoppingCartsBean {
 	}
 
 	@OneToOne
-	@JoinColumn(name="FK_ProductsBean_Id")
+	@JoinColumn(name="pd_id")
 	public ProductsBean getPdtBean() {
 		return pdtBean;
 	}
@@ -69,11 +80,11 @@ public class ShoppingCartsBean {
 	}
 
 
-	public Integer getSc_price() {
+	public Double getSc_price() {
 		return sc_price;
 	}
 
-	public void setSc_price(Integer sc_price) {
+	public void setSc_price(Double sc_price) {
 		this.sc_price = sc_price;
 	}
 

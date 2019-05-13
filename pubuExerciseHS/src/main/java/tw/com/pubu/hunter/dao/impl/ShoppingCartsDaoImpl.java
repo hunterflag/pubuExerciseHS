@@ -58,6 +58,32 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	}
 
 	@Override
+	public boolean isItemExist(int ctmId, int pdId) {
+		boolean isExist = true;
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		
+		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId AND scb.pdtBean.pd_id = :pdId";
+		try {
+			tx = session.beginTransaction();
+			int no = session.createQuery(hqlStr)
+							.setParameter("ctmId", ctmId)
+							.setParameter("pdId", pdId)
+							.getResultList()
+							.size();
+			if(no > 0) isExist = true;
+			else isExist = false;
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		
+		return isExist;
+	}
+
+	
+	@Override
 	public ShoppingCartsBean getById(Integer id) {
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
@@ -82,17 +108,17 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ShoppingCartsBean> getItemsByMember(int memberId) {
+	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId) {
 		List<ShoppingCartsBean> result = null;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		
-		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.member.pk = :memberId";
+		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId";
 		try {
 			tx = session.beginTransaction();
 			
 			result = session.createQuery(hqlStr)
-							.setParameter("memberId", memberId)
+							.setParameter("ctmId", ctmId)
 							.getResultList();
 			tx.commit();
 		}catch(Exception e) {

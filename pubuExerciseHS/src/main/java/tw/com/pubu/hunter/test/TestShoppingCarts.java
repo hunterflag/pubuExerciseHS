@@ -3,11 +3,11 @@ package tw.com.pubu.hunter.test;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import tw.com.pubu.hunter.bean.MemberBean;
-import tw.com.pubu.hunter.bean.ProductBean;
-import tw.com.pubu.hunter.bean.ShoppingCartBean;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 import tw.idv.hunter.tool.HunterDebug;
+import unUsed.MemberBean;
+import unUsed.ProductBean;
+import unUsed.ShoppingCartBean;
 
 public class TestShoppingCarts {
 	

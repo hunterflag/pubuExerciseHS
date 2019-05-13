@@ -5,12 +5,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import tw.com.pubu.hunter.bean.MemberBean;
-import tw.com.pubu.hunter.bean.ShoppingCartBean;
-import tw.com.pubu.hunter.dao.MemberDao;
-import tw.com.pubu.hunter.dao.ShoppingCartDao;
-import tw.com.pubu.hunter.dao.impl.MemberDaoImpl;
-import tw.com.pubu.hunter.dao.impl.ShoppingCartDaoImpl;
+import unUsed.MemberBean;
+import unUsed.MemberDao;
+import unUsed.MemberDaoImpl;
+import unUsed.ShoppingCartBean;
+import unUsed.ShoppingCartDao;
+import unUsed.ShoppingCartDaoImpl;
 
 public class TestDao {
 

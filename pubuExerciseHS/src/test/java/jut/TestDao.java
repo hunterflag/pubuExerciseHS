@@ -7,11 +7,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import tw.com.pubu.hunter.bean.MemberBean;
-import tw.com.pubu.hunter.dao.MemberDao;
-import tw.com.pubu.hunter.dao.impl.MemberDaoImpl;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 import tw.idv.hunter.tool.HunterDebug;
+import unUsed.MemberBean;
+import unUsed.MemberDao;
+import unUsed.MemberDaoImpl;
 
 public class TestDao {
 
