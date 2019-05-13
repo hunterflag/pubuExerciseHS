@@ -2,14 +2,14 @@ package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
-import tw.com.pubu.hunter.bean.ShoppingCartBean;
+import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 
 public interface ShoppingCartsDao {
-	public Object insert(ShoppingCartBean insObj);
-	public boolean delete(ShoppingCartBean delObj);
-	public ShoppingCartBean getByPk(Integer pk);
-	public ShoppingCartBean getByPk(int ipk);
-	public List<ShoppingCartBean> getItemsByMember(int memberId);
-	public List<ShoppingCartBean> getAlls();
-	public boolean update(ShoppingCartBean updObj);
+	public Object insert(ShoppingCartsBean insObj);
+	public boolean delete(ShoppingCartsBean delObj);
+	public ShoppingCartsBean getById(Integer id);
+	public ShoppingCartsBean getById(int id);
+	public List<ShoppingCartsBean> getItemsByMember(int memberId);
+	public List<ShoppingCartsBean> getAlls();
+	public boolean update(ShoppingCartsBean updObj);
 }

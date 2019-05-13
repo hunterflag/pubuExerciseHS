@@ -69,6 +69,13 @@ public class CustomersDaoImpl implements CustomersDao {
 		return result;
 	}
 
+	public int getIdByAccount(String account) {
+		int id=0;
+		CustomersBean bean = getByAccount(account);
+		id = bean.getCtm_id();
+		return id;
+	}
+	
 	/*
 	@SuppressWarnings("unchecked")
 	

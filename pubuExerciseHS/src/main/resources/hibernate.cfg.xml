@@ -15,8 +15,8 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/pubu_exercise?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Taipei</property> 
         <!-- 資料庫使用者、密碼 --> 
         <property name="connection.username">root</property> 
-<!--         <property name="connection.password">123456</property>  -->
-        <property name="connection.password">SuperHunter</property> 
+        <property name="connection.password">123456</property> 
+<!--         <property name="connection.password">SuperHunter</property>  -->
 
 		
 		<!-- SQL方言，設定是MsSQL -->

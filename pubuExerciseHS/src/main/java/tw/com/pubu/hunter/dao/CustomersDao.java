@@ -5,6 +5,7 @@ import tw.com.pubu.hunter.bean.CustomersBean;
 public interface CustomersDao {
 	public CustomersBean getByAccount(String account);
 	public boolean isAccountExist(String account);
+	public int getIdByAccount(String account);
 
 
 }

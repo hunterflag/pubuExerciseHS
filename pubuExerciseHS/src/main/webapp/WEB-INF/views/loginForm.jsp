@@ -13,9 +13,9 @@
 		<input type="submit" value="登入">
 		<input type="reset" value="重填">
 	</form>
-	<div id="areaForLoginResult">
-		<hr/>
-		<jsp:include page="loginResult.jsp"></jsp:include>
-	</div>	
+<!-- 	<div id="areaForLoginResult"> -->
+<!-- 		<hr/> -->
+<%-- 		<jsp:include page="loginResult.jsp"></jsp:include> --%>
+<!-- 	</div>	 -->
 </body>
 </html>

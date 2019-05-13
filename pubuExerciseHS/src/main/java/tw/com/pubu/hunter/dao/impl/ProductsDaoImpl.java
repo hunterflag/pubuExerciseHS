@@ -64,14 +64,14 @@ public class ProductsDaoImpl implements ProductsDao {
 */
 	
 	@Override
-	public ProductsBean getByPk(Integer pk) {
+	public ProductsBean getById(Integer id) {
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		ProductsBean persistentBean = null;
 
 		try {
 			tx = session.beginTransaction();
-			persistentBean = (ProductsBean) session.get(ProductsBean.class, pk);
+			persistentBean = (ProductsBean) session.get(ProductsBean.class, id);
 			tx.commit();
 		}catch(Exception e) {
 			if(tx!=null) tx.rollback();
@@ -82,8 +82,8 @@ public class ProductsDaoImpl implements ProductsDao {
 	}
 
 	@Override
-	public ProductsBean getByPk(int ipk) {
-		return getByPk(Integer.valueOf(ipk));
+	public ProductsBean getById(int id) {
+		return getById(Integer.valueOf(id));
 	}
 
 	@SuppressWarnings("unchecked")

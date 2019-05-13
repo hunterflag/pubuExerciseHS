@@ -2,6 +2,8 @@ package tw.com.pubu.hunter.service.impl;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Service;
+
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
@@ -37,4 +39,10 @@ public class CustomersServiceImpl implements CustomersService {
 		return result;
 	}
 
+	public int getIdByAccount(String account) {
+		int id=0;
+		CustomersDao dao = new CustomersDaoImpl();
+		id = dao.getIdByAccount(account);
+		return id;
+	}
 }

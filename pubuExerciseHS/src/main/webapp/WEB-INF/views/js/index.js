@@ -10,12 +10,12 @@ $(document).ready(function(){
 	
 	$("#btnLogout").click(function(){
 		todo('btnLogout');
-		window.open('Logout.do');
+		window.open('logout');
 	});
 	
 	$("#btnShowProductList").click(function(){
 		todo("btnShowProductList");
-		window.open("showProductList.jsp");
+		window.open("showProductList");
 	});
 	
 	$("#btnShowShoppingCart").click(function(){
