@@ -20,7 +20,7 @@
 	</c:when>
 	<c:otherwise>
 		購物車(已選購商品):
-		<table border='1'>
+		<table border  ='1'>
 		<TR>
 		<TH><TH>客戶<TH>品名<TH>售價<TH>數量<TH>小計
 <%-- 		<c:set var="total_price" value=0 /> --%>
