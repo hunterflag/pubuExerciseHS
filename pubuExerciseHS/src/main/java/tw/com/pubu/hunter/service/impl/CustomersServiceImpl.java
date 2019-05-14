@@ -19,8 +19,6 @@ public class CustomersServiceImpl implements CustomersService {
 		CustomersDao dao = new CustomersDaoImpl();
 		
 		//取得傳入值、確認有值
-		HunterDebug.showKeyValue("login account", account);
-		HunterDebug.showKeyValue("login password", password);
 		if(account.isEmpty() || password.isEmpty()) return result;
 //		if (account.equals("")) result = LoginResult.AccountIsEmpty;
 //		else if (password.equals("")) result = LoginResult.AccountIsEmpty;

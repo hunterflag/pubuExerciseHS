@@ -22,7 +22,6 @@ import tw.com.pubu.hunter.service.impl.CustomersServiceImpl;
 import tw.com.pubu.hunter.service.impl.ProductsServiceImpl;
 import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 import tw.idv.hunter.tool.HunterDebug;
-import unUsed.MemberBean;
 
 @Controller
 public class ExerciseController {
@@ -41,7 +40,7 @@ public class ExerciseController {
 						@RequestParam(value="loginAcc", defaultValue="") String account,
 						@RequestParam(value="loginPwd", defaultValue="") String password
 						) {
-		
+
 		//登入檢查 (由 Hibernate 取資料庫)
 		LoginResult result = LoginResult.Error;
 		CustomersService service = new CustomersServiceImpl();
@@ -73,12 +72,11 @@ public class ExerciseController {
 	}
 	
 	@RequestMapping(value="/showProductList", method=RequestMethod.GET)
-	public String prepareProductList(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String showProductList(Model model, HttpServletRequest request, HttpServletResponse response) {
 		ProductsService service = new ProductsServiceImpl();
 		List<ProductsBean> list = service.getAlls();
 		
 		model.addAttribute("pdts", list);
-		HunterDebug.traceMessage();
 		return "showProductList";
 	}
 	
@@ -87,9 +85,6 @@ public class ExerciseController {
 			@RequestParam(value="ctm_id", defaultValue="0") int ctm_id,
 			@RequestParam(value="pd_id", defaultValue="0") int pd_id
 			) {
-		HunterDebug.showKeyValue("ctm_id", ctm_id);
-		HunterDebug.showKeyValue("pd_id", pd_id);
-		
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		service.add(ctm_id, pd_id);
 		
@@ -98,20 +93,54 @@ public class ExerciseController {
 	
 	
 	@RequestMapping(value="/showShoppingCart", method=RequestMethod.GET)
-	public String showShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="ctm_id", defaultValue="0") int ctm_id
-			) {
-		HunterDebug.showKeyValue("ctm_id", ctm_id);
-		
+	public String showShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response) {
+		int ctm_id = (int) request.getSession().getAttribute("loginId");
+
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
-		System.out.println(list);
 		model.addAttribute("scs", list);
 		return "showShoppingCart";
 	}
 	
+	@RequestMapping(value="/removeItemFromShoppingCart")
+	public String removeItemFromShoppingCart(
+			@RequestParam(name="sc_id", defaultValue="0") int sc_id) {
+		
+		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		service.removeById(sc_id);
+		
+		return "showShoppingCart";
+	}
 	
+	@RequestMapping(value="/clearShoppingCartByCustomer")
+	public String clearShoppingCartByCustomer(
+			@RequestParam(name="ctm_id", defaultValue="0") int ctm_id) {
+		
+		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		service.clearByCustomer(ctm_id);
+		
+		return "showShoppingCart";
+	}
+		
+	@RequestMapping(value="/updateShoppingCartItem", method=RequestMethod.POST)
+	public String updateShoppingCartItem(
+				@RequestParam(name="sc_id", defaultValue="0") int sc_id,
+				@RequestParam(name="sc_number", defaultValue="0") int sc_number
+			){
+		
+		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		service.updateNumberOfItem(sc_id, sc_number);
+		
+		return "showShoppingCart";
+	}
 	
-	
+	@RequestMapping(value="/shoppingCartConfirmOrder", method=RequestMethod.POST)
+	public String shoppingCartConfirmOrder(Model model){
+		
+		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		service.updateNumberOfItem(sc_id, sc_number);
+		
+		return "showShoppingCart";
+	}
 
 }

@@ -1,5 +1,7 @@
 package jut;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,6 +17,8 @@ import tw.com.pubu.hunter.dao.ShoppingCartsDao;
 import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
+import tw.com.pubu.hunter.service.ShoppingCartsService;
+import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 import util.HibernateUtils;
 
 public class TestShoppingCartsDao {
@@ -45,8 +49,14 @@ public class TestShoppingCartsDao {
 //		ProductsDao pDao = new ProductsDaoImpl();
 
 		ShoppingCartsDao scDao = new ShoppingCartsDaoImpl();
-		ShoppingCartsBean scBean = scDao.getById(1);
+		ShoppingCartsBean scBean = scDao.getById(2);
 		System.out.println(">>>>" + scBean);
+		
+		ShoppingCartsService scService = new ShoppingCartsServiceImpl();
+		List<ShoppingCartsBean> scList = scService.getItemsByCustomer(2);
+		
+		System.out.println(">>>>" + scList.toString());
+		
 
 //		Object newDId = cDao. CustomersBean("newCtm", "newCtm");
 //		ShoppingCartsBean insObj = new ShoppingCartsBean();

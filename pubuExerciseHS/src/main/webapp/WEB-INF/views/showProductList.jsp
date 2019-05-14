@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*, javax.sql.*, tw.com.pubu.hunter.*" %>
+<%-- <%@ page import="java.sql.*, javax.sql.*, tw.com.pubu.hunter.*" %> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -37,6 +37,21 @@
 	</c:choose>
 	
 	<hr/>
-	<jsp:include page="./showShoppingCart.jsp" ></jsp:include>
+	
+<%-- 	<jsp:include page="./showShoppingCart.jsp" ></jsp:include> --%>
+	
+<!-- <script type="text/javascript"> 
+// 	$(document).ready(function(){
+// 		var ctm_id = ${loginId};
+// 		var urlStr= "prepareForShowShoppingCart?ctm_id=" + ctm_id ; 
+// 		$.get(urlStr, function(data, status){
+// 			if(status == "success"){
+// 				$("#areaShowShoppingCart").html(data);
+// 				console.log(data);
+//			}
+//		});
+//	});
+
+</script> -->
 </body>
 </html>

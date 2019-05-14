@@ -12,8 +12,8 @@ import javax.persistence.Table;
 @Table(name="shopping_carts")
 public class ShoppingCartsBean {
 	private Integer sc_id;
-	private CustomersBean ctmBean;
-	private ProductsBean pdtBean;
+	private CustomersBean ctmBean;	//資料表 欄位名稱為 ctm_id
+	private ProductsBean pdtBean;	//資料表 欄位名稱為 pd_id
 	private Integer sc_number = 1;
 	private Double sc_price;
 
@@ -30,7 +30,6 @@ public class ShoppingCartsBean {
 	}
 
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSc_id() {
@@ -41,24 +40,7 @@ public class ShoppingCartsBean {
 		this.sc_id = sc_id;
 	}
 
-	/*
-	public Integer getCtm_id() {
-		return ctm_id;
-	}
-
-	public void setCtm_id(Integer ctm_id) {
-		this.ctm_id = ctm_id;
-	}
-
-	public Integer getPd_id() {
-		return pd_id;
-	}
-
-	public void setPd_id(Integer pd_id) {
-		this.pd_id = pd_id;
-	}
-*/
-
+	
 	@OneToOne
 	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {

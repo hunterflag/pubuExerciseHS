@@ -23,7 +23,6 @@ public class RootAppConfig {
 	//DataSource 資料庫連線資訊
 	@Bean
 	public DataSource dataSource() {
-		HunterDebug.traceMessage();
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		ds.setUser("root");
 		ds.setPassword("123456");
@@ -41,7 +40,6 @@ public class RootAppConfig {
 	//SessionFactory
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
-		HunterDebug.traceMessage();
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean(); 
 		factory.setDataSource(dataSource());
 		factory.setPackagesToScan(new String[]{
@@ -54,14 +52,12 @@ public class RootAppConfig {
 	@Bean(name="transactionManager")
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		HunterDebug.traceMessage();
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
 		txManager.setSessionFactory(sessionFactory);
 		return txManager;
 	}
 	
 	private Properties additionalProperties() {
-		HunterDebug.traceMessage();
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", org.hibernate.dialect.MySQL8Dialect.class);
 		properties.put("hibernate.show_sql", Boolean.TRUE);

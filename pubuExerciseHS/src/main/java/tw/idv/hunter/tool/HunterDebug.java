@@ -9,10 +9,9 @@ public class HunterDebug {
 	
 	public static void showKeyValue(String key, String value) {
 		System.out.println("<<<<<<<<---------------------------------------------------------------");
-		System.out.println(key + " : " + value);
+		System.out.printf("key: %s\nvalue:%s\n", key, value);
 		System.out.println(">>>>>>>>---------------------------------------------------------------");
 	}
-	
 	public static void showKeyValue(String key, int value) { showKeyValue(key, ""+value); }
 	
 	public static void showMessage(String target, String msg) {

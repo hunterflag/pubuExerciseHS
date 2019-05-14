@@ -41,7 +41,6 @@ public class ProductsServiceImpl implements ProductsService {
 /*	
 	@SuppressWarnings("unchecked")
 	public boolean isAccExist(String account) {
-		HunterDebug.traceMessage();
 		boolean result = false;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
@@ -66,7 +65,6 @@ public class ProductsServiceImpl implements ProductsService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ProductBean getByAcc(String qryAcc) {
-		HunterDebug.traceMessage();
 		ProductBean result = null;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;

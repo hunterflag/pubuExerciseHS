@@ -20,7 +20,7 @@ $(document).ready(function(){
 	
 	$("#btnShowShoppingCart").click(function(){
 		todo("btnShowShoppingCart");
-		window.open("showShoppingCart.jsp");
+		window.open("showShoppingCart");
 	});
 	
 	$("#btnShowOrder").click(function(){

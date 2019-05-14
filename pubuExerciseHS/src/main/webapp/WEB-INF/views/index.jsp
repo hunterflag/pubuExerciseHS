@@ -16,6 +16,7 @@
 		<button id="btnLogin">登入</button>
 		<button id="btnLogout">登出</button>
 		<button id="btnShowProductList">商品</button>
+		<button id="btnShowShoppingCart">購物車</button>
 		<button id="btnShowOrder">訂購單</button>		
 	</nav>		
 	</header>

@@ -1,15 +1,6 @@
 $(document).ready(function(){
-	$("#btnClear").click(function(){
-		var urlString = "ClearShoppingCart.do";
-		$.get(urlString, function(data, status){
-			if (status == "success"){
-				location.reload();
-			}
-		});
-	});
-
 	$("#btnOrder").click(function(){
-		var urlString = "ShoppingCartConfirmOrder.do";
+		var urlString = "shoppingCartConfirmOrder";
 		$.get(urlString, function(data, status){
 			if (status == "success"){
 				alert("訂單成立!");
@@ -20,8 +11,8 @@ $(document).ready(function(){
 	
 });
 
-function removeFromShoppingCart(pd_id){
-	var urlString = "doRemoveFromShoppingCart?pd_id=" + pd_id ;
+function removeItemFromShoppingCart(sc_id){
+	var urlString = "removeItemFromShoppingCart?sc_id=" + sc_id ;
 	$.get(urlString, function(data, status){
 		if (status == "success"){
 			todo(data);
@@ -30,17 +21,26 @@ function removeFromShoppingCart(pd_id){
 	});
 }
 
-function updateShoppingCart(ctm_id, pd_id){
-	var urlString = "UpdateShoppingCart.do"
+function clearShoppingCartByCustomer(ctm_id){
+	var urlString = "clearShoppingCartByCustomer?ctm_id=" + ctm_id ;
+	$.get(urlString, function(data, status){
+		if (status == "success"){
+			location.reload();
+			todo(data);
+		}
+	});
+}
+
+
+
+function updateShoppingCartItem(sc_id, sc_number){
+	var urlString = "updateShoppingCartItem";
 	$.post(urlString, 
-		  { "pd_id": pd_id,
-		    "ctm_id": ctm_id,
-	  	    "sc_number": $("#sc_number").val()},
-  	  	  function(data, status){
+		   { "sc_id": sc_id, 
+			 "sc_number": sc_number},
+  	  	   function(data, status){
 	  		  if (status == "success"){
-	  			  todo(data);
 	  			  location.reload();
 	  		  }
-	  	  }
-    );
+	  	   });
 }

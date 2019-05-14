@@ -38,6 +38,7 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		return key;
 	}
 	
+	@Override
 	public boolean delete(ShoppingCartsBean delObj) {
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
@@ -56,7 +57,36 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		
 		return isSuccess;
 	}
-
+	
+	@Override
+	public boolean delete(int id) {
+		boolean result = false;
+		ShoppingCartsBean sc = getById(id);
+		result = delete(sc);
+		return result;
+	}
+	
+	@Override
+	public int deleteAllByCustomer(int ctmId) {
+		int result = 0;
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		
+		String hqlStr = "DELETE FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId";
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery(hqlStr)
+							.setParameter("ctmId", ctmId)
+							.executeUpdate();
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public boolean isItemExist(int ctmId, int pdId) {
 		boolean isExist = true;
@@ -149,6 +179,7 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		return result;
 	}
 	
+	@Override
 	public boolean update(ShoppingCartsBean updObj) {
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
@@ -172,6 +203,13 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		
 		return isSuccess;
 	}
+//	
+//	@Override
+//	public boolean updateNumberOfItem(int sc_id, int newNumber) {
+//		boolean isSuccess = false;
+//		bean = getById
+//		return isSuccess;
+//	}
 
 	
 }
