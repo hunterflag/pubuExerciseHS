@@ -33,6 +33,22 @@ public class OrderDetailsBean {
 		this.odBean = odBean;
 	}
 
+	public OrderDetailsBean(ProductsBean pdtBean, Integer oddt_price, Integer oddt_number, OrdersBean odBean) {
+		super();
+		this.pdtBean = pdtBean;
+		this.oddt_price = oddt_price;
+		this.oddt_number = oddt_number;
+		this.odBean = odBean;
+	}
+
+	public OrderDetailsBean(ProductsBean pdtBean, int oddt_price, int oddt_number, OrdersBean odBean) {
+		super();
+		this.pdtBean = pdtBean;
+		this.oddt_price = oddt_price;
+		this.oddt_number = oddt_number;
+		this.odBean = odBean;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getOddt_id() {
@@ -43,7 +59,7 @@ public class OrderDetailsBean {
 		this.oddt_id = oddt_id;
 	}
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="pd_id")
 	public ProductsBean getPdtBean() {
 		return pdtBean;
@@ -69,7 +85,7 @@ public class OrderDetailsBean {
 		this.oddt_number = oddt_number;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="od_id")
 	public OrdersBean getOdBean() {
 		return odBean;

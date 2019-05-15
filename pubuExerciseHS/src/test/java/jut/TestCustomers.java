@@ -10,7 +10,7 @@ import org.junit.Test;
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
-import util.HibernateUtils;
+import tw.com.pubu.hunter.utils.HibernateUtils;
 
 public class TestCustomers {
 	private SessionFactory factory;

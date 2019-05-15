@@ -94,6 +94,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/showShoppingCart", method=RequestMethod.GET)
 	public String showShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response) {
+		if(request.getSession().getAttribute("loginId") ==null) return "showShoppingCart";
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
 
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
@@ -134,11 +135,15 @@ public class ExerciseController {
 		return "showShoppingCart";
 	}
 	
-	@RequestMapping(value="/shoppingCartConfirmOrder", method=RequestMethod.POST)
-	public String shoppingCartConfirmOrder(Model model){
+	
+	@RequestMapping(value="/shoppingCartConfirmOrder", method=RequestMethod.GET)
+	public String shoppingCartConfirmOrder(Model model, HttpServletRequest request, HttpServletResponse response){
+		if(request.getSession().getAttribute("loginId") ==null) 
+			return "showShoppingCart";
 		
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		service.updateNumberOfItem(sc_id, sc_number);
+		int ctm_id = (int) request.getSession().getAttribute("loginId");
+		service.ConfirmToOrder(ctm_id);
 		
 		return "showShoppingCart";
 	}

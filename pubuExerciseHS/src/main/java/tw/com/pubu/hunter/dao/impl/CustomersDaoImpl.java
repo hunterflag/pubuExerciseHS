@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
-import util.HibernateUtils;
+import tw.com.pubu.hunter.utils.HibernateUtils;
 
 public class CustomersDaoImpl implements CustomersDao {
 	SessionFactory factory;

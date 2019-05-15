@@ -7,11 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import tw.com.pubu.hunter.utils.HibernateUtils;
-import tw.idv.hunter.tool.HunterDebug;
-import unUsed.MemberBean;
-import unUsed.MemberDao;
-import unUsed.MemberDaoImpl;
 import unUsed.MemberService;
 import unUsed.MemberServiceImpl;
 

@@ -19,7 +19,8 @@ import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
 import tw.com.pubu.hunter.service.ShoppingCartsService;
 import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
-import util.HibernateUtils;
+import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class TestShoppingCartsDao {
 	private SessionFactory factory;
@@ -28,20 +29,32 @@ public class TestShoppingCartsDao {
 
 	@Before
 	public void setUp(){
-		factory = HibernateUtils.getSessionFactory();
-		session = factory.openSession();
-		tx = session.beginTransaction();
+		System.out.println("setUp()");
+//		factory = HibernateUtils.getSessionFactory();
+//		session = factory.openSession();
+//		tx = session.beginTransaction();
 	}
 
 	@After
 	public void tearDown(){
-		tx.commit();
-		session.close();
-		factory.close();
+		System.out.println("tearDown()");
+//		tx.commit();
+//		session.close();
+//		factory.close();
 	}
 
 	@Test
+	public void testOrdersDao(){
+		System.out.println("3");
+		
+		
+	}
+	
+	
+	@Test
 	public void test() {
+		System.out.println("4");
+/*	
 		CustomersDao cDao = new CustomersDaoImpl();
 		CustomersBean cBean = cDao.getById(1);
 		System.out.println(">>>>" + cBean);
@@ -57,7 +70,7 @@ public class TestShoppingCartsDao {
 		
 		System.out.println(">>>>" + scList.toString());
 		
-
+*/
 //		Object newDId = cDao. CustomersBean("newCtm", "newCtm");
 //		ShoppingCartsBean insObj = new ShoppingCartsBean();
 //		

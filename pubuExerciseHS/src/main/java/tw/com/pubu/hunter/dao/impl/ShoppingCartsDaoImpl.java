@@ -17,6 +17,7 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		factory = HibernateUtils.getSessionFactory();
 	}
 	
+	//XXX 何時會用來關掉 factory? 一值沒看到
 	public void closeFactory() {
 		factory.close();
 	}
@@ -43,7 +44,6 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		boolean isSuccess = false;
-		ShoppingCartsBean persistentBean = null;
 		
 		try {
 			tx = session.beginTransaction();
@@ -203,13 +203,57 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		
 		return isSuccess;
 	}
-//	
-//	@Override
-//	public boolean updateNumberOfItem(int sc_id, int newNumber) {
-//		boolean isSuccess = false;
-//		bean = getById
-//		return isSuccess;
-//	}
+	
+/****************	
+	//TODO ShoppingCartDao.ConfirmToOrder()
+	public int ConfirmToOrder(int ctmId) {
+		int number=0;
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		//取出客戶Id
+		//取出會員的購物車內容
+		List<ShoppingCartsBean> scList = getItemsByCustomer(ctmId);
+		HunterDebug.showKeyValue("scList", scList.toString());
+		HunterDebug.traceMessage();
+		try {
+			tx = session.beginTransaction();
+			HunterDebug.traceMessage();
+			//訂單 1: 先建立訂單編號、取得新增訂單的 oid
+			CustomersBean ctmBean = session.get(CustomersBean.class, ctmId);
+			OrdersBean odBean = new OrdersBean(ctmBean);
+			HunterDebug.showKeyValue("odBean", odBean.toString());
+//			int od_id = odBean.getOd_id();
+			//XXX 尚未commit, 會有 oid 嗎?
 
+			//依購物車內容, 建立訂購明細表 & 計算總價
+			int total_price = 0;
+			for(ShoppingCartsBean scBean : scList) {
+
+//				OrderDetailsBean oddtBean = new OrderDetailsBean(
+//												scBean.getPdtBean(),
+//												scBean.getSc_price().intValue(),
+//												scBean.getSc_number(),
+//												odBean);
+//				
+			
+			
+				total_price += scBean.getSc_price() * scBean.getSc_number();
+			}
+			
+			HunterDebug.showKeyValue("total_price", total_price);
+			
+			//訂單2：更新總價
+
+			//移除購物車內容
+			
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		
+		return number;
+	}
+*******************/
 	
 }

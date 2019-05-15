@@ -5,11 +5,12 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import tw.com.pubu.hunter.enums.OrderStatus;
@@ -20,22 +21,26 @@ public class OrdersBean {
 	private Integer od_id;	
 	private Timestamp od_time = new Timestamp(new Date().getTime());	//下單時間
 	private CustomersBean ctmBean;
-	private Integer od_total_price;
-	private OrderStatus od_state = OrderStatus.OPEN;
+	private Integer od_total_price = 0;
+	private String od_state = "open";
 
 	public OrdersBean() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public OrdersBean(Integer od_id, Timestamp od_time, CustomersBean ctmBean, Integer od_total_price,
-			OrderStatus od_state) {
+			String od_state) {
 		super();
 		this.od_id = od_id;
 		this.od_time = od_time;
 		this.ctmBean = ctmBean;
 		this.od_total_price = od_total_price;
 		this.od_state = od_state;
+	}
+	
+	public OrdersBean(CustomersBean ctmBean) {
+		super();
+		this.ctmBean = ctmBean;
 	}
 	
 	@Id
@@ -56,7 +61,7 @@ public class OrdersBean {
 		this.od_time = od_time;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {
 		return ctmBean;
@@ -74,11 +79,11 @@ public class OrdersBean {
 		this.od_total_price = od_total_price;
 	}
 
-	public OrderStatus getOd_state() {
+	public String getOd_state() {
 		return od_state;
 	}
 
-	public void setOd_state(OrderStatus od_state) {
+	public void setOd_state(String od_state) {
 		this.od_state = od_state;
 	}
 

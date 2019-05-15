@@ -49,10 +49,8 @@
 		<mapping class="tw.com.pubu.hunter.bean.CustomersBean"></mapping>
 		<mapping class="tw.com.pubu.hunter.bean.ProductsBean"></mapping>
 		<mapping class="tw.com.pubu.hunter.bean.ShoppingCartsBean"></mapping>
-<!-- 		pubuEx2 -->
-<!-- 		<mapping class="tw.com.pubu.hunter.bean.MemberBean"></mapping> -->
-<!-- 		<mapping class="tw.com.pubu.hunter.bean.ProductBean"></mapping> -->
-<!-- 		<mapping class="tw.com.pubu.hunter.bean.ShoppingCartBean"></mapping> -->
+		<mapping class="tw.com.pubu.hunter.bean.OrdersBean"></mapping>
+		<mapping class="tw.com.pubu.hunter.bean.OrderDetailsBean"></mapping>
 		
 	</session-factory>
 </hibernate-configuration>

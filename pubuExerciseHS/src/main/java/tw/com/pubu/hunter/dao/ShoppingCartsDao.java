@@ -15,5 +15,6 @@ public interface ShoppingCartsDao {
 	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId);
 	public List<ShoppingCartsBean> getAlls();
 	public boolean update(ShoppingCartsBean updObj);
+//	public int ConfirmToOrder(int ctmId);
 //	public boolean updateNumberOfItem(int sc_id, int newNumber);
 }

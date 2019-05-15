@@ -10,14 +10,11 @@ import tw.com.pubu.hunter.enums.RecordStatus;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 import tw.idv.hunter.tool.HunterDebug;
 
-/*
- * XXX 為何這裡埋的 HunterDebug 都不會顯示?
- */
 public class MemberDaoImpl implements MemberDao {
 	SessionFactory factory;
 	
 	public MemberDaoImpl() {
-		HunterDebug.traceMessage();
+		HunterDebug.showMessage("gedd");
 		factory = HibernateUtils.getSessionFactory();
 	}
 	
