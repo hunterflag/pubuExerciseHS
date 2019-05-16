@@ -14,9 +14,12 @@ $(document).ready(function(){
 //}
 
 function getOrderDetails(od_id){
-	var urlString = "GetOrderDetailsByMaps.do?od_id=" + od_id;
+	todo("getOrderDetails(od_id)");
+	var urlString = "getOrderDetailsById?od_id=" + od_id;
 	$.get(urlString, function(data, status){
 		if(status == "success"){
+			todo("Success getOrderDetails(od_id)");
+//			window.open("ShowOrderDetailsList");
 			$("#areaShowOrderDetails").html(data);
 		}
 	});

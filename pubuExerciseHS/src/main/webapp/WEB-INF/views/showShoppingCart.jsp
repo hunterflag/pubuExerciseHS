@@ -42,5 +42,17 @@
 			<button id="btnOrder">確認結帳</button>
 		</c:otherwise>
 	</c:choose>
+	
+<script type="text/javascript">
+$(document).ready(function(){
+	var urlString = "getDatasForShowShoppingCart";
+	$.get(urlString, function(data, status){
+		if(status=="success"){
+			todo("JS ")
+// 			location.reload();
+		}
+	});
+});
+</script>
 </body>
 </html>

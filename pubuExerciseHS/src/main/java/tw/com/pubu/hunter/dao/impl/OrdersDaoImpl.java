@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
@@ -96,6 +97,44 @@ public class OrdersDaoImpl implements OrdersDao {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrdersBean> getAllsByCustomer(int ctmId){
+		List<OrdersBean> result = null;
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			String qryHqlStr = "FROM OrdersBean AS ob WHERE ob.ctmBean.ctm_id = :ctmId";
+			Query<OrdersBean> query = session.createQuery(qryHqlStr);
+			query.setParameter("ctmId", ctmId);
+			result = query.getResultList();
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrdersBean> getAlls(){
+		List<OrdersBean> result = null;
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("FROM Orders")
+						  .getResultList();
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
+
 	
 }

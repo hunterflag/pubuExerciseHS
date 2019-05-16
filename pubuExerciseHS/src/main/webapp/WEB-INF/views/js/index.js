@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	$("#btnHome").click(function(){
 		todo("btnHome");
+		window.open("index");
 	});
 
 	$("#btnLogin").click(function(){
@@ -18,14 +19,9 @@ $(document).ready(function(){
 		window.open("showProductList");
 	});
 	
-	$("#btnShowShoppingCart").click(function(){
-		todo("btnShowShoppingCart");
-		window.open("showShoppingCart");
-	});
-	
 	$("#btnShowOrder").click(function(){
 		todo("btnShowOrder");
-		window.open("showOrders.jsp");
+		window.open("showOrderList");
 	});
 	
 	todo("index.js Loaded...");

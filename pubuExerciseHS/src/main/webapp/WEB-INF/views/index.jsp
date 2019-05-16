@@ -6,17 +6,16 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/DevTools.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-<title>Spring+Hibernate測試首頁</title>
+<title>Hibernate + Spring 測試首頁</title>
 </head>
 <body>
 	<header>
-	Hibernate + Spring 版
+	Hibernate + Spring MVC版
 	<nav>
 		<button id="btnHome">首頁</button>
 		<button id="btnLogin">登入</button>
 		<button id="btnLogout">登出</button>
 		<button id="btnShowProductList">商品</button>
-		<button id="btnShowShoppingCart">購物車</button>
 		<button id="btnShowOrder">訂購單</button>		
 	</nav>		
 	</header>

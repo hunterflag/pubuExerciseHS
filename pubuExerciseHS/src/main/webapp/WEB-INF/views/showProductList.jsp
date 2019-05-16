@@ -34,22 +34,7 @@
 			</table>
 		</c:otherwise>
 	</c:choose>
-	
 	<hr/>
-<%-- 	<jsp:include page="./showShoppingCart.jsp" ></jsp:include> --%>
-	
-<!-- <script type="text/javascript"> 
-// 	$(document).ready(function(){
-// 		var ctm_id = ${loginId};
-// 		var urlStr= "prepareForShowShoppingCart?ctm_id=" + ctm_id ; 
-// 		$.get(urlStr, function(data, status){
-// 			if(status == "success"){
-// 				$("#areaShowShoppingCart").html(data);
-// 				console.log(data);
-//			}
-//		});
-//	});
-
-</script> -->
+	<div id="areaShowShoppingCart"></div>
 </body>
 </html>

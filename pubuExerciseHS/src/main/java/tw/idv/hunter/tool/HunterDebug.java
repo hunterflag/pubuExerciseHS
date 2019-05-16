@@ -2,6 +2,10 @@ package tw.idv.hunter.tool;
 
 public class HunterDebug {
 	private static int traceNo = 0;
+	private static boolean traceOn = true;
+	private static int pos = 2;
+	private static String msg = "none";
+	
 	
 	public static void showKeyValue(String key, String value) {
 		System.out.println("<<<<<<<<---------------------------------------------------------------");
@@ -20,18 +24,45 @@ public class HunterDebug {
 	/* 是想顯示的上層,index=2
 	 * https://blog.csdn.net/zxygww/article/details/45533347
 	 */
-	public static void traceMessage(boolean traceOn) {
-		if(traceOn) {
+	public static void traceMessage(int depth) {
+		StackTraceElement[] arr = Thread.currentThread().getStackTrace();
+		depth = Math.min(depth, arr.length);
+		if(!traceOn) return;
+		if(depth > 0) {
 			traceNo++;
 			System.out.println("<<<<<<<< -----------------------------------------------------------");
-			System.out.println("traceNo=" + traceNo + ",\t" 
-					+"method: " + Thread.currentThread().getStackTrace()[2].getMethodName() + "(),\t"
-					+"Class: " + Thread.currentThread().getStackTrace()[2].getClassName() + ",\t"
-					);
+			System.out.println("traceNo=" + traceNo + ",\tlength: " + arr.length);  
+			for(int i=1; i<depth; i++) {
+					System.out.println("\ti=" + i + "\t"
+							+"method: " + arr[i].getMethodName() + "(),\t"
+							+"Class: " + arr[i].getClassName());
+			}
 			System.out.println(">>>>>>>> -----------------------------------------------------------");
 		}
 	}
 	public static void traceMessage() {
-		traceMessage(true);
+		if(!traceOn) return; 
+		traceNo++;
+		System.out.println("<<<<<<<< -----------------------------------------------------------");
+		System.out.println("traceNo=" + traceNo + ",\tlength: " + Thread.currentThread().getStackTrace().length + "\n"   
+				+"msg: " + msg + "\t"
+				+"method: " + Thread.currentThread().getStackTrace()[pos].getMethodName() + "(),\t"
+				+"Class: " + Thread.currentThread().getStackTrace()[pos].getClassName());
+		System.out.println(">>>>>>>> -----------------------------------------------------------");
 	}
+	/**
+	 * 
+	 * @param traceSwitch
+	 */
+	public static void traceMessage(boolean traceSwitch) {
+		traceOn = traceSwitch;
+	}
+	public static void traceMessage(String msg) {
+		HunterDebug.msg = msg;
+		HunterDebug.pos++;
+		traceMessage();
+		HunterDebug.pos--;
+		HunterDebug.msg="none";
+	}
+	
 }

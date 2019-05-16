@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.bean.OrderDetailsBean;
@@ -52,6 +53,26 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 	}
 
 	
+	
+	@SuppressWarnings("unchecked")
+	public List<OrderDetailsBean> getAllsById(int od_id){
+		List<OrderDetailsBean> result = null;
+		Session session = factory.getCurrentSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			String qryHqlStr = "FROM OrderDetailsBean AS oddtb WHERE oddtb.odBean.od_id = :od_id";
+			Query<OrderDetailsBean> query = session.createQuery(qryHqlStr);
+			query.setParameter("od_id", od_id);
+			result = query.getResultList();
+			tx.commit();
+		}catch(Exception e) {
+			if(tx!=null) tx.rollback();
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 /*
 	@Override
 	public boolean update(int od_id, int od_total_price) {

@@ -12,16 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tw.com.pubu.hunter.bean.OrderDetailsBean;
+import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 import tw.com.pubu.hunter.enums.LoginResult;
 import tw.com.pubu.hunter.service.CustomersService;
+import tw.com.pubu.hunter.service.OrderDetailsService;
+import tw.com.pubu.hunter.service.OrdersService;
 import tw.com.pubu.hunter.service.ProductsService;
 import tw.com.pubu.hunter.service.ShoppingCartsService;
 import tw.com.pubu.hunter.service.impl.CustomersServiceImpl;
+import tw.com.pubu.hunter.service.impl.OrderDetailsServiceImpl;
+import tw.com.pubu.hunter.service.impl.OrdersServiceImpl;
 import tw.com.pubu.hunter.service.impl.ProductsServiceImpl;
 import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
-import tw.idv.hunter.tool.HunterDebug;
 
 @Controller
 public class ExerciseController {
@@ -88,11 +93,14 @@ public class ExerciseController {
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		service.add(ctm_id, pd_id);
 		
-		return "";
+		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
+		model.addAttribute("scs", list);
+		return "showShoppingCart";
 	}
 	
 	
-	@RequestMapping(value="/showShoppingCart", method=RequestMethod.GET)
+	@RequestMapping(value= {"/getDatasForShowShoppingCart"}, 
+					method=RequestMethod.GET)
 	public String showShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response) {
 		if(request.getSession().getAttribute("loginId") ==null) return "showShoppingCart";
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
@@ -138,7 +146,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/shoppingCartConfirmOrder", method=RequestMethod.GET)
 	public String shoppingCartConfirmOrder(Model model, HttpServletRequest request, HttpServletResponse response){
-		if(request.getSession().getAttribute("loginId") ==null) 
+		if(request.getSession().getAttribute("loginId") == null) 
 			return "showShoppingCart";
 		
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
@@ -148,4 +156,30 @@ public class ExerciseController {
 		return "showShoppingCart";
 	}
 
+	@RequestMapping(value="/showOrderList", method=RequestMethod.GET)
+	public String showOrderList(Model model, HttpServletRequest request, HttpServletResponse response) {
+		if(request.getSession().getAttribute("loginId") == null) 
+			return "showOrderList";
+		
+		OrdersService service = new OrdersServiceImpl();
+		int ctm_id = (int) request.getSession().getAttribute("loginId");
+		List<OrdersBean> list = service.getAllsByCustomer(ctm_id);
+		model.addAttribute("ods", list);
+		
+		return "showOrderList";
+	}
+	
+	@RequestMapping(value="/getOrderDetailsById", method=RequestMethod.GET)
+	public String getOrderDetailsById( Model model, 
+									HttpServletRequest request, 
+									HttpServletResponse response,
+									@RequestParam(name="od_id", defaultValue="0") int od_id ) {
+		OrderDetailsService service = new OrderDetailsServiceImpl();
+		List<OrderDetailsBean> list = service.getAllsById(od_id);
+		model.addAttribute("oddts", list);
+		
+		return "showOrderDetailsList";
+	}          
+	
 }
+
