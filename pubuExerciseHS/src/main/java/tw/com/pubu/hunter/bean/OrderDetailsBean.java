@@ -101,5 +101,4 @@ public class OrderDetailsBean {
 				+ ", oddt_number=" + oddt_number + ", odBean=" + odBean + "]";
 	}
 
-	
 }

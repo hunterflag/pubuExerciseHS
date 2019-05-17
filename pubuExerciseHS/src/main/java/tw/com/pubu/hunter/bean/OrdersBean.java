@@ -22,12 +22,13 @@ public class OrdersBean {
 	private Timestamp od_time = new Timestamp(new Date().getTime());	//下單時間
 	private CustomersBean ctmBean;
 	private Integer od_total_price = 0;
-	private String od_state = "open";
+	private String od_state = "open";	//XXX DB端用 enum, Java端若改用 enum 要怎麼做?
 
 	public OrdersBean() {
 		super();
 	}
 
+	//XXX 這應該用不到?
 	public OrdersBean(Integer od_id, Timestamp od_time, CustomersBean ctmBean, Integer od_total_price,
 			String od_state) {
 		super();

@@ -76,9 +76,8 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 	}
 	
 	@Override
-	public int ConfirmToOrder(int ctmId) {
+	public int ConfirmToOrder(int ctmId) {		//傳入客戶Id
 		int number = 0;	
-		//取出客戶Id
 		//訂單 1: 先建立訂單編號、取得新增訂單的 oid
 		OrdersDao odDao = new OrdersDaoImpl();
 		int od_id = (int) odDao.insert(ctmId);
@@ -86,7 +85,6 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 		//取出會員的購物車內容
 		ShoppingCartsDao scDao = new ShoppingCartsDaoImpl();
 		List<ShoppingCartsBean> scList = scDao.getItemsByCustomer(ctmId);
-//		HunterDebug.showKeyValue("scList", scList.toString());
 		
 		//依購物車內容, 建立訂購明細表 & 計算總價
 		OrdersBean odBean = odDao.getById(od_id);
@@ -98,17 +96,14 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 						   scBean.getSc_number(),
 						   odBean
 					   );
-			
 			total_price += scBean.getSc_price() * scBean.getSc_number();
 		}
 			
-			HunterDebug.showKeyValue("total_price", total_price);
-			
-			//訂單2：更新總價
-			odDao.update(od_id, total_price);
+		//訂單2：更新總價
+		odDao.update(od_id, total_price);
 
-			//移除購物車內容
-			scDao.deleteAllByCustomer(ctmId);
+		//移除購物車內容
+		scDao.deleteAllByCustomer(ctmId);
 		
 		return number;
 	}

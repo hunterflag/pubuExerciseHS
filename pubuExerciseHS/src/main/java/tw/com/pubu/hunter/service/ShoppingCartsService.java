@@ -11,11 +11,4 @@ public interface ShoppingCartsService {
 	public int clearByCustomer(int ctmId);
 	public boolean updateNumberOfItem(int sc_id, int newNumber);
 	public int ConfirmToOrder(int ctmId);
-//	public boolean isItemExist(int memberId, int productId);
-//	public int confirmToOrder(int memberId);
-//	public boolean isAccExist(String account);
-//	public MemberBean getByAcc(String account);
-//	public MemberBean getByNo(int no);
-
-
 }

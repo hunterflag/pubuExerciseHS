@@ -15,7 +15,6 @@ function removeItemFromShoppingCart(sc_id){
 	var urlString = "removeItemFromShoppingCart?sc_id=" + sc_id ;
 	$.get(urlString, function(data, status){
 		if (status == "success"){
-			todo(data);
 			location.reload();
 		}
 	});
@@ -26,21 +25,18 @@ function clearShoppingCartByCustomer(ctm_id){
 	$.get(urlString, function(data, status){
 		if (status == "success"){
 			location.reload();
-			todo(data);
 		}
 	});
 }
 
-
-
 function updateShoppingCartItem(sc_id, sc_number){
 	var urlString = "updateShoppingCartItem";
-	$.post(urlString, 
-		   { "sc_id": sc_id, 
-			 "sc_number": sc_number},
-  	  	   function(data, status){
-	  		  if (status == "success"){
-	  			  location.reload();
-	  		  }
-	  	   });
+	$.post( urlString, 
+		    { "sc_id": sc_id, "sc_number": sc_number },
+  	  	    function(data, status){
+				  if (status == "success"){
+					  location.reload();
+				  }
+		    }
+		  );
 }

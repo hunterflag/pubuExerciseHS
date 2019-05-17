@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ page import="java.sql.*, javax.sql.*, javax.servlet.http.*, tw.com.pubu.hunter.*" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +14,7 @@
 <c:choose>
 	<c:when test="${empty loginName}">
 		請先登入!! (稍後自動關閉)
-		<script type='text/javascript'>
-			setTimeout('window.close()', 2000);
-		</script>
+		<script type='text/javascript'>	setTimeout('window.close()', 2000);	</script>
 	</c:when>
 	<c:otherwise>
 		${loginId }號會員${loginName} 已訂購過 ${ods.size()} 筆, 紀錄如下：<br />
@@ -34,11 +31,11 @@
 					</TR>
 				</c:forEach>
 			</c:if> 	
-
 		</table>
-		<hr />
-		<div id="areaShowOrderDetails"></div>	
 	</c:otherwise>
 </c:choose>
+	<button onclick="window.close();">關閉</button>
+	<hr />
+	<div id="areaShowOrderDetails"></div>	
 </body>
 </html>

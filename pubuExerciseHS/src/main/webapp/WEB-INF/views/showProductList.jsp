@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="js/DevTools.js"></script>
-<script type="text/javascript" src="js/showProductList.js"></script>
-<title>商品</title>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/DevTools.js"></script>
+	<script type="text/javascript" src="js/showProductList.js"></script>
+	<title>商品</title>
 </head>
 <body>
 	<c:choose>
@@ -18,7 +18,7 @@
 			</script>
 		</c:when>
 		<c:otherwise>
-			ID:${loginId}, account:${loginName}, 有 ${pdts.size()} 筆可購商品<br/>
+			ID:${loginId}, 帳號:${loginName}, 有 ${pdts.size()} 筆可購商品<br/>
 			<table border='1'>
 				<TR>
 				<TH>編號<TH>品名<TH>定價<TH>購物車
@@ -28,12 +28,13 @@
 						<TD>${pdt.pd_id}
 						<TD>${pdt.pd_name}
 						<TD>${pdt.pd_price}
-						<TD><button onclick="addToShoppingCart(${loginId}, ${pdt.pd_id})">加入</button>
+						<TD><button type="button" onclick="addToShoppingCart(${loginId}, ${pdt.pd_id});">加入</button>
 					</c:forEach>
 				</c:if>
 			</table>
 		</c:otherwise>
 	</c:choose>
+	<button type="button" onclick="window.close();">關閉</button>
 	<hr/>
 	<div id="areaShowShoppingCart"></div>
 </body>

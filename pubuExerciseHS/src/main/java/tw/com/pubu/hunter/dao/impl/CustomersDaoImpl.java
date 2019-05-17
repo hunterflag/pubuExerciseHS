@@ -20,10 +20,7 @@ public class CustomersDaoImpl implements CustomersDao {
 	public void closeFactory() {
 		factory.close();
 	}
-	/**
-	 * @author chenhuanzhang
-	 * @return null 表示無此帳號
-	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public CustomersBean getByAccount(String account) {
@@ -50,6 +47,7 @@ public class CustomersDaoImpl implements CustomersDao {
 	
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public boolean isAccountExist(String account) {
 		boolean result = false;
 		Session session = factory.getCurrentSession();
@@ -69,14 +67,13 @@ public class CustomersDaoImpl implements CustomersDao {
 		return result;
 	}
 
+	@Override
 	public int getIdByAccount(String account) {
 		int id=0;
 		CustomersBean bean = getByAccount(account);
 		id = bean.getCtm_id();
 		return id;
 	}
-	
-	@SuppressWarnings("unchecked")
 	
 	@Override
 	public CustomersBean getById(Integer id) {
@@ -94,27 +91,9 @@ public class CustomersDaoImpl implements CustomersDao {
 		return bean;
 	}
 
+	@Override
 	public CustomersBean getById(int id) {
 		return getById(Integer.valueOf(id));
 	}
 
-	/*
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Customers> getAlls() {
-		List<Customers> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			result = session.createQuery("FROM Customers")
-						  .getResultList();
-			tx.commit();
-		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
-			System.out.println(e.getMessage());
-		}
-		return result;
-	}
-	*/
 }

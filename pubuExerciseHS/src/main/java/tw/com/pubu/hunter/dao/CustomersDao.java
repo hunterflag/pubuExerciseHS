@@ -8,6 +8,4 @@ public interface CustomersDao {
 	public int getIdByAccount(String account);
 	public CustomersBean getById(Integer id);
 	public CustomersBean getById(int id);
-
-
 }

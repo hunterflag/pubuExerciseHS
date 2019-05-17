@@ -1,15 +1,10 @@
 package tw.com.pubu.hunter.service.impl;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Service;
-
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
 import tw.com.pubu.hunter.enums.LoginResult;
 import tw.com.pubu.hunter.service.CustomersService;
-import tw.idv.hunter.tool.HunterDebug;
 
 public class CustomersServiceImpl implements CustomersService {
 

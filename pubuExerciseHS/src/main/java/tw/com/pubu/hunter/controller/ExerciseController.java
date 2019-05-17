@@ -3,7 +3,6 @@ package tw.com.pubu.hunter.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,7 @@ import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 
 @Controller
 public class ExerciseController {
-	@RequestMapping("/")
+	@RequestMapping(value= {"/", "/index"})
 	public String index(Model model) {
 		return "index";
 	}
@@ -41,11 +40,9 @@ public class ExerciseController {
 	}
 	
 	@RequestMapping(value="/loginCheck", method=RequestMethod.POST)
-	public String loginCheck(Model model, HttpServletRequest request, HttpServletResponse response, 
-						@RequestParam(value="loginAcc", defaultValue="") String account,
-						@RequestParam(value="loginPwd", defaultValue="") String password
-						) {
-
+	public String loginCheck(Model model, HttpServletRequest request, 
+							@RequestParam(value="loginAcc", defaultValue="") String account,
+							@RequestParam(value="loginPwd", defaultValue="") String password) {
 		//登入檢查 (由 Hibernate 取資料庫)
 		LoginResult result = LoginResult.Error;
 		CustomersService service = new CustomersServiceImpl();
@@ -63,7 +60,7 @@ public class ExerciseController {
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String logout(Model model, HttpServletRequest request) {
 		String logoutResult = null;
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginName") == null ) {
@@ -77,19 +74,19 @@ public class ExerciseController {
 	}
 	
 	@RequestMapping(value="/showProductList", method=RequestMethod.GET)
-	public String showProductList(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String showProductList(Model model, HttpServletRequest request) {
 		ProductsService service = new ProductsServiceImpl();
 		List<ProductsBean> list = service.getAlls();
 		
+//		request.setAttribute("pdts", list);
 		model.addAttribute("pdts", list);
 		return "showProductList";
 	}
 	
 	@RequestMapping(value="/addToShoppingCart", method=RequestMethod.GET)
-	public String addToShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="ctm_id", defaultValue="0") int ctm_id,
-			@RequestParam(value="pd_id", defaultValue="0") int pd_id
-			) {
+	public String addToShoppingCart(Model model,
+									@RequestParam(value="ctm_id", defaultValue="0") int ctm_id,
+									@RequestParam(value="pd_id", defaultValue="0") int pd_id) {
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		service.add(ctm_id, pd_id);
 		
@@ -101,7 +98,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value= {"/getDatasForShowShoppingCart"}, 
 					method=RequestMethod.GET)
-	public String showShoppingCart(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String getDatasForShowShoppingCart(Model model, HttpServletRequest request){
 		if(request.getSession().getAttribute("loginId") ==null) return "showShoppingCart";
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
 
@@ -113,8 +110,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/removeItemFromShoppingCart")
 	public String removeItemFromShoppingCart(
-			@RequestParam(name="sc_id", defaultValue="0") int sc_id) {
-		
+							@RequestParam(name="sc_id", defaultValue="0") int sc_id){
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		service.removeById(sc_id);
 		
@@ -123,8 +119,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/clearShoppingCartByCustomer")
 	public String clearShoppingCartByCustomer(
-			@RequestParam(name="ctm_id", defaultValue="0") int ctm_id) {
-		
+							@RequestParam(name="ctm_id", defaultValue="0") int ctm_id){
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		service.clearByCustomer(ctm_id);
 		
@@ -133,10 +128,8 @@ public class ExerciseController {
 		
 	@RequestMapping(value="/updateShoppingCartItem", method=RequestMethod.POST)
 	public String updateShoppingCartItem(
-				@RequestParam(name="sc_id", defaultValue="0") int sc_id,
-				@RequestParam(name="sc_number", defaultValue="0") int sc_number
-			){
-		
+							@RequestParam(name="sc_id", defaultValue="0") int sc_id,
+							@RequestParam(name="sc_number", defaultValue="0") int sc_number){
 		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		service.updateNumberOfItem(sc_id, sc_number);
 		
@@ -145,7 +138,7 @@ public class ExerciseController {
 	
 	
 	@RequestMapping(value="/shoppingCartConfirmOrder", method=RequestMethod.GET)
-	public String shoppingCartConfirmOrder(Model model, HttpServletRequest request, HttpServletResponse response){
+	public String shoppingCartConfirmOrder(Model model, HttpServletRequest request){
 		if(request.getSession().getAttribute("loginId") == null) 
 			return "showShoppingCart";
 		
@@ -157,7 +150,7 @@ public class ExerciseController {
 	}
 
 	@RequestMapping(value="/showOrderList", method=RequestMethod.GET)
-	public String showOrderList(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String showOrderList(Model model, HttpServletRequest request){
 		if(request.getSession().getAttribute("loginId") == null) 
 			return "showOrderList";
 		
@@ -171,9 +164,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/getOrderDetailsById", method=RequestMethod.GET)
 	public String getOrderDetailsById( Model model, 
-									HttpServletRequest request, 
-									HttpServletResponse response,
-									@RequestParam(name="od_id", defaultValue="0") int od_id ) {
+									@RequestParam(name="od_id", defaultValue="0") int od_id ){
 		OrderDetailsService service = new OrderDetailsServiceImpl();
 		List<OrderDetailsBean> list = service.getAllsById(od_id);
 		model.addAttribute("oddts", list);

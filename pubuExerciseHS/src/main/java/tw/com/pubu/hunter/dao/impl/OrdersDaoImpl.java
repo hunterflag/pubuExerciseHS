@@ -127,7 +127,7 @@ public class OrdersDaoImpl implements OrdersDao {
 		try {
 			tx = session.beginTransaction();
 			result = session.createQuery("FROM Orders")
-						  .getResultList();
+							.getResultList();
 			tx.commit();
 		}catch(Exception e) {
 			if(tx!=null) tx.rollback();
