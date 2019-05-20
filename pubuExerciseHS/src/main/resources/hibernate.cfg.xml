@@ -46,11 +46,16 @@
 		<!-- 3. 宣告程式使用的永續類別 -->
 		<!-- 使用 @nnotation 方式, 說明 Persistence Class 之 FQNC(類別全名, 含packageName) -->
 <!-- 		pubu_exercise -->
-		<mapping class="tw.com.pubu.hunter.bean.CustomersBean"></mapping>
-		<mapping class="tw.com.pubu.hunter.bean.ProductsBean"></mapping>
-		<mapping class="tw.com.pubu.hunter.bean.ShoppingCartsBean"></mapping>
-		<mapping class="tw.com.pubu.hunter.bean.OrdersBean"></mapping>
-		<mapping class="tw.com.pubu.hunter.bean.OrderDetailsBean"></mapping>
+<!-- 		<mapping class="tw.com.pubu.hunter.bean.CustomersBean"></mapping> -->
+<!-- 		<mapping class="tw.com.pubu.hunter.bean.ProductsBean"></mapping> -->
+<!-- 		<mapping class="tw.com.pubu.hunter.bean.ShoppingCartsBean"></mapping> -->
+<!-- 		<mapping class="tw.com.pubu.hunter.bean.OrdersBean"></mapping> -->
+<!-- 		<mapping class="tw.com.pubu.hunter.bean.OrderDetailsBean"></mapping> -->
 		
+		<mapping resource="tw/com/pubu/hunter/bean/CustomersBean.hbm.xml"></mapping>
+		<mapping resource="tw/com/pubu/hunter/bean/ProductsBean.hbm.xml"></mapping>
+		<mapping resource="tw/com/pubu/hunter/bean/ShoppingCartsBean.hbm.xml"></mapping>
+		<mapping resource="tw/com/pubu/hunter/bean/OrdersBean.hbm.xml"></mapping>
+		<mapping resource="tw/com/pubu/hunter/bean/OrderDetailsBean.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>
