@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="order_details")
+//@Entity
+//@Table(name="order_details")
 public class OrderDetailsBean {
 	private Integer oddt_id;
 	private ProductsBean pdtBean;	//資料表 欄位名稱為 pd_id
@@ -49,8 +49,8 @@ public class OrderDetailsBean {
 		this.odBean = odBean;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getOddt_id() {
 		return oddt_id;
 	}
@@ -59,8 +59,8 @@ public class OrderDetailsBean {
 		this.oddt_id = oddt_id;
 	}
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="pd_id")
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="pd_id")
 	public ProductsBean getPdtBean() {
 		return pdtBean;
 	}
@@ -85,8 +85,8 @@ public class OrderDetailsBean {
 		this.oddt_number = oddt_number;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="od_id")
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="od_id")
 	public OrdersBean getOdBean() {
 		return odBean;
 	}

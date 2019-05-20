@@ -1,15 +1,9 @@
 package tw.com.pubu.hunter.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="customers")
-public class CustomersBean{
-	private Integer ctm_id;	
+//@Entity
+//@Table(name="customers")
+public class CustomersBean {
+	private Integer ctm_id ;	
 	private String ctm_account;
 	private String ctm_password;
 
@@ -25,8 +19,8 @@ public class CustomersBean{
 
 
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getCtm_id() {
 		return ctm_id;
 	}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019/5/20 ?U?? 02:57:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping default-lazy="false">
+ <class name="tw.com.pubu.hunter.bean.OrderDetailsBean" table="ORDER_DETAILS">
+  <id name="oddt_id" type="java.lang.Integer">
+   <column name="ODDT_ID"/>
+   <generator class="identity"/>
+  </id>
+  <many-to-one class="tw.com.pubu.hunter.bean.ProductsBean" fetch="join" name="pdtBean">
+   <column name="PDTBEAN"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="oddt_price" type="java.lang.Integer">
+   <column name="ODDT_PRICE"/>
+  </property>
+  <property generated="never" lazy="false" name="oddt_number" type="java.lang.Integer">
+   <column name="ODDT_NUMBER"/>
+  </property>
+  <many-to-one class="tw.com.pubu.hunter.bean.OrdersBean" fetch="join" name="odBean">
+   <column name="ODBEAN"/>
+  </many-to-one>
+ </class>
+</hibernate-mapping>

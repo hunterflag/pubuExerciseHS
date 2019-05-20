@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="products")
+//@Entity
+//@Table(name="products")
 public class ProductsBean {
 	private Integer pd_id;
 	private String pd_name;
@@ -17,8 +17,8 @@ public class ProductsBean {
 		super();
 	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getPd_id() {
 		return pd_id;
 	}

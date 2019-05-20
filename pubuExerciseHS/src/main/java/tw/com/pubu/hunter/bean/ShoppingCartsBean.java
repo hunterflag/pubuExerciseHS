@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="shopping_carts")
+//@Entity
+//@Table(name="shopping_carts")
 public class ShoppingCartsBean {
 	private Integer sc_id;
 	private CustomersBean ctmBean;	//資料表 欄位名稱為 ctm_id
@@ -31,8 +31,8 @@ public class ShoppingCartsBean {
 	}
 
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSc_id() {
 		return sc_id;
 	}
@@ -42,8 +42,8 @@ public class ShoppingCartsBean {
 	}
 
 	
-	@ManyToOne
-	@JoinColumn(name="ctm_id")
+//	@ManyToOne
+//	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {
 		return ctmBean;
 	}
@@ -52,8 +52,8 @@ public class ShoppingCartsBean {
 		this.ctmBean = ctmBean;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="pd_id")
+//	@ManyToOne
+//	@JoinColumn(name="pd_id")
 	public ProductsBean getPdtBean() {
 		return pdtBean;
 	}

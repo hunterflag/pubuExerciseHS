@@ -14,9 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import tw.com.pubu.hunter.enums.OrderStatus;
+import tw.idv.hunter.tool.HunterDebug;
 
-@Entity
-@Table(name="orders")
+//@Entity
+//@Table(name="orders")
 public class OrdersBean {
 	private Integer od_id;	
 	private Timestamp od_time = new Timestamp(new Date().getTime());	//下單時間
@@ -41,11 +42,13 @@ public class OrdersBean {
 	
 	public OrdersBean(CustomersBean ctmBean) {
 		super();
+		HunterDebug.traceMessage();
+		HunterDebug.showKeyValue("ctmBean",  ctmBean.toString());
 		this.ctmBean = ctmBean;
 	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getOd_id() {
 		return od_id;
 	}
@@ -62,8 +65,8 @@ public class OrdersBean {
 		this.od_time = od_time;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="ctm_id")
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {
 		return ctmBean;
 	}

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019/5/20 ?U?? 02:57:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping default-lazy="false">
+ <class name="tw.com.pubu.hunter.bean.CustomersBean" table="CUSTOMERS">
+  <id name="ctm_id" type="java.lang.Integer">
+   <column name="CTM_ID" not-null="false" sql-type="INTEGER" unique="true"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="ctm_account" type="java.lang.String">
+   <column name="CTM_ACCOUNT"/>
+  </property>
+  <property generated="never" lazy="false" name="ctm_password" type="java.lang.String">
+   <column name="CTM_PASSWORD"/>
+  </property>
+ </class>
+</hibernate-mapping>
