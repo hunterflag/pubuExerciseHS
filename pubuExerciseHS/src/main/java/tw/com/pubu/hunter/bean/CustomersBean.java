@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="customers")
-public class CustomersBean  {
+public class CustomersBean{
 	private Integer ctm_id;	
 	private String ctm_account;
 	private String ctm_password;
