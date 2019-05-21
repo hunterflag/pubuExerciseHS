@@ -9,7 +9,7 @@
    <generator class="identity"/>
   </id>
   <many-to-one class="tw.com.pubu.hunter.bean.ProductsBean" fetch="join" name="pdtBean">
-   <column name="PDTBEAN"/>
+   <column name="PD_id"/>
   </many-to-one>
   <property generated="never" lazy="false" name="oddt_price" type="java.lang.Integer">
    <column name="ODDT_PRICE"/>
@@ -18,7 +18,7 @@
    <column name="ODDT_NUMBER"/>
   </property>
   <many-to-one class="tw.com.pubu.hunter.bean.OrdersBean" fetch="join" name="odBean">
-   <column name="ODBEAN"/>
+   <column name="OD_id" not-null="true"/>
   </many-to-one>
  </class>
 </hibernate-mapping>

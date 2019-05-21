@@ -13,7 +13,7 @@
   </property>
   <many-to-one class="tw.com.pubu.hunter.bean.CustomersBean"
    fetch="join" name="ctmBean">
-   <column name="CTMBEAN"/>
+   <column name="CTM_id"/>
   </many-to-one>
   <property generated="never" lazy="false" name="od_total_price" type="java.lang.Integer">
    <column name="OD_TOTAL_PRICE"/>

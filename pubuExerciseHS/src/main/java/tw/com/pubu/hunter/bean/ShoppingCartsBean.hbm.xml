@@ -10,10 +10,10 @@
   </id>
   <many-to-one class="tw.com.pubu.hunter.bean.CustomersBean"
    fetch="join" name="ctmBean">
-   <column name="CTMBEAN"/>
+   <column name="CTM_id"/>
   </many-to-one>
   <many-to-one class="tw.com.pubu.hunter.bean.ProductsBean" fetch="join" name="pdtBean">
-   <column name="PDTBEAN"/>
+   <column name="PD_id"/>
   </many-to-one>
   <property generated="never" lazy="false" name="sc_number" type="java.lang.Integer">
    <column name="SC_NUMBER"/>
