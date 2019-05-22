@@ -4,7 +4,7 @@
 <!-- Generated 2019/5/20 ?U?? 01:36:29 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping default-lazy="false">
  <class name="tw.com.pubu.hunter.bean.ShoppingCartsBean" table="SHOPPING_CARTS">
-  <id name="sc_id" type="java.lang.Integer">
+  <id column="sc_id" name="sc_id" type="java.lang.Integer">
    <column name="SC_ID" unique="true"/>
    <generator class="identity"/>
   </id>
