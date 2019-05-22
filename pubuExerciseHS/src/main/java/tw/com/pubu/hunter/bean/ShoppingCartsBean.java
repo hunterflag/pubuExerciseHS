@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,7 +41,7 @@ public class ShoppingCartsBean {
 	}
 
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {
 		return ctmBean;
@@ -52,7 +51,7 @@ public class ShoppingCartsBean {
 		this.ctmBean = ctmBean;
 	}
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="pd_id")
 	public ProductsBean getPdtBean() {
 		return pdtBean;
