@@ -1,14 +1,17 @@
 package tw.com.pubu.hunter.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="products")
-public class ProductsBean {
+public class ProductsBean implements Serializable {
 	private Integer pd_id;
 	private String pd_name;
 	private Double pd_price;

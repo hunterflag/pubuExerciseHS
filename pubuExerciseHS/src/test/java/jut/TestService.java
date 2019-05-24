@@ -7,9 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import unUsed.MemberService;
-import unUsed.MemberServiceImpl;
-
 public class TestService {
 
 	private SessionFactory factory;
@@ -32,8 +29,6 @@ public class TestService {
 
 	@Test
 	public void test() {
-		MemberService service= new MemberServiceImpl();
-		service.add("ffff", "ffff");
 	}
 
 }

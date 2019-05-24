@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+						http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+<!-- 			持久性單元名稱 -->
+	<persistence-unit name="example" transaction-type="RESOURCE_LOCAL">
+<!-- 	<persistence-unit name="example" transaction-type="JTA"> -->
+<!-- 	ORM 類型 -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<!-- 		<provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+<!-- 		DAM 設定資訊  -->
+		<properties>
+			<property name="hibernate.archive.autodetection" value="class, hbm" />
+<!--		Database Server 種類 資訊 -->
+			<!-- 1.SQL方言，這邊設定的是MySQL 8.x  2.JDBC 驅動程式 -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
+<!--		Database 資料庫 連線 資訊 -->
+			<!-- 1.JDBC URL & 資料庫名稱	2.資料庫使用者帳號、密碼 --> 
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/pubu_exercise?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Taipei" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="123456" />
+				
+<!--		Advanced 進階資訊 -->
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			
+<!-- 		Mapping -->
+			
+			<property name="packagesToScan" value="tw.com.pubu.hunter.bean" />
+		</properties>
+<!-- 		<class>tw.com.pubu.hunter.bean.CustomersBean</class> -->
+	</persistence-unit>
+</persistence>

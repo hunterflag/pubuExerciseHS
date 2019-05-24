@@ -11,7 +11,7 @@
         <!-- JDBC驅動程式 --> 
 <!--         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property> 
-         <!-- JDBC URL & --> 
+        <!-- JDBC URL & --> 
 <!--         <property name="connection.url">jdbc:mysql://localhost:3306/pubuEx2?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Taipei</property>  -->
         <property name="connection.url">jdbc:mysql://localhost:3306/pubu_exercise?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Taipei</property> 
         <!-- 資料庫使用者、密碼 --> 

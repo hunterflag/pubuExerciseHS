@@ -13,7 +13,6 @@ import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 import tw.idv.hunter.tool.HunterDebug;
-import unUsed.MemberBean;
 
 public class TestBean {
 
