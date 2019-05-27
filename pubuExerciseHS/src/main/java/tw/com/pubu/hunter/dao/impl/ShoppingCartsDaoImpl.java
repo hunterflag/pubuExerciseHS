@@ -2,38 +2,43 @@ package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 import tw.com.pubu.hunter.dao.ShoppingCartsDao;
-import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.com.pubu.hunter.utils.JpaUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
-	SessionFactory factory;
+	EntityManagerFactory emFactory;
 	
 	public ShoppingCartsDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+		HunterDebug.traceMessage();
+		emFactory = JpaUtils.getEntityManagerFactory();
 	}
 	
-	//XXX 何時會用來關掉 factory? 一值沒看到
 	public void closeFactory() {
-		factory.close();
+		HunterDebug.traceMessage();
+		emFactory.close();
 	}
 	
 	@Override
 	public Object insert(ShoppingCartsBean insObj) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		Object key = null;
 		
 		try {
-			tx = session.beginTransaction();
-			key = session.save(insObj);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			em.persist(insObj);
+			key = insObj.getSc_id();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return key;
@@ -41,17 +46,21 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	
 	@Override
 	public boolean delete(ShoppingCartsBean delObj) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		HunterDebug.showKeyValue("delObj=", delObj.toString());
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		boolean isSuccess = false;
 		
 		try {
-			tx = session.beginTransaction();
-			session.delete(delObj);
+			etx = em.getTransaction();
+			etx.begin();
+			ShoppingCartsBean rmvObj = em.merge(delObj);
+			em.remove(rmvObj);
 			isSuccess = true;
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -60,27 +69,31 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	
 	@Override
 	public boolean delete(int id) {
+		HunterDebug.traceMessage();
 		boolean result = false;
-		ShoppingCartsBean sc = getById(id);
-		result = delete(sc);
+		ShoppingCartsBean scBean = getById(id);
+		HunterDebug.showKeyValue("scBean=", scBean.toString());
+		result = delete(scBean);
 		return result;
 	}
 	
 	@Override
 	public int deleteAllByCustomer(int ctmId) {
+		HunterDebug.traceMessage();
 		int result = 0;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		String hqlStr = "DELETE FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId";
 		try {
-			tx = session.beginTransaction();
-			result = session.createQuery(hqlStr)
-							.setParameter("ctmId", ctmId)
-							.executeUpdate();
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			result = em.createQuery(hqlStr)
+					   .setParameter("ctmId", ctmId)
+					   .executeUpdate();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -89,23 +102,25 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	
 	@Override
 	public boolean isItemExist(int ctmId, int pdId) {
+		HunterDebug.traceMessage();
 		boolean isExist = true;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId AND scb.pdtBean.pd_id = :pdId";
 		try {
-			tx = session.beginTransaction();
-			int no = session.createQuery(hqlStr)
-							.setParameter("ctmId", ctmId)
-							.setParameter("pdId", pdId)
-							.getResultList()
-							.size();
+			etx = em.getTransaction();
+			etx.begin();
+			int no = em.createQuery(hqlStr)
+						.setParameter("ctmId", ctmId)
+						.setParameter("pdId", pdId)
+						.getResultList()
+						.size();
 			if(no > 0) isExist = true;
 			else isExist = false;
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -115,16 +130,18 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	
 	@Override
 	public ShoppingCartsBean getById(Integer id) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		ShoppingCartsBean persistentBean = null;
 
 		try {
-			tx = session.beginTransaction();
-			persistentBean = (ShoppingCartsBean) session.get(ShoppingCartsBean.class, id);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			persistentBean = (ShoppingCartsBean) em.find(ShoppingCartsBean.class, id);
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -133,26 +150,29 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 
 	@Override
 	public ShoppingCartsBean getById(int id) {
+		HunterDebug.traceMessage();
 		return getById(Integer.valueOf(id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId) {
+		HunterDebug.traceMessage();
 		List<ShoppingCartsBean> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId";
 		try {
-			tx = session.beginTransaction();
+			etx = em.getTransaction();
+			etx.begin();
 			
-			result = session.createQuery(hqlStr)
-							.setParameter("ctmId", ctmId)
-							.getResultList();
-			tx.commit();
+			result = em.createQuery(hqlStr)
+						.setParameter("ctmId", ctmId)
+						.getResultList();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -162,17 +182,19 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ShoppingCartsBean> getAlls() {
+		HunterDebug.traceMessage();
 		List<ShoppingCartsBean> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		try {
-			tx = session.beginTransaction();
-			result = session.createQuery("FROM ShoppingCartsBean")
-						  .getResultList();
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			result = em.createQuery("FROM ShoppingCartsBean")
+					  .getResultList();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 
@@ -181,13 +203,15 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	
 	@Override
 	public boolean update(ShoppingCartsBean updObj) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		boolean isSuccess = false;
 		
 		try {
-			tx = session.beginTransaction();
-			ShoppingCartsBean persistentBean = session.get(ShoppingCartsBean.class, updObj.getSc_id());
+			etx = em.getTransaction();
+			etx.begin();
+			ShoppingCartsBean persistentBean = em.find(ShoppingCartsBean.class, updObj.getSc_id());
 			persistentBean.setCtmBean(updObj.getCtmBean());
 			persistentBean.setPdtBean(updObj.getPdtBean());
 			persistentBean.setSc_number(updObj.getSc_number());
@@ -195,9 +219,9 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 //			session.saveOrUpdate(updObj);
 //			session.merge(updObj);
 			isSuccess = true;
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		

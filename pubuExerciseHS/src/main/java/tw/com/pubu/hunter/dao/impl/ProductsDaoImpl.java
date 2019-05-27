@@ -2,38 +2,43 @@ package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.ProductsDao;
-import tw.com.pubu.hunter.enums.RecordStatus;
-import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.com.pubu.hunter.utils.JpaUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class ProductsDaoImpl implements ProductsDao {
-	SessionFactory factory;
+	private EntityManagerFactory emFactory;
 	
 	public ProductsDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+		HunterDebug.traceMessage();
+		emFactory= JpaUtils.getEntityManagerFactory();
 	}
 	
 	public void closeFactory() {
-		factory.close();
+		HunterDebug.traceMessage();
+		emFactory.close();
 	}
 
 	@Override
 	public ProductsBean getById(Integer id) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		
+		EntityTransaction etx = null;
 		ProductsBean persistentBean = null;
 
 		try {
-			tx = session.beginTransaction();
-			persistentBean = (ProductsBean) session.get(ProductsBean.class, id);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			persistentBean = (ProductsBean) em.find(ProductsBean.class, id);
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -42,23 +47,26 @@ public class ProductsDaoImpl implements ProductsDao {
 
 	@Override
 	public ProductsBean getById(int id) {
+		HunterDebug.traceMessage();
 		return getById(Integer.valueOf(id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductsBean> getAlls() {
+		HunterDebug.traceMessage();
 		List<ProductsBean> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		try {
-			tx = session.beginTransaction();
-			result = session.createQuery("FROM ProductsBean")
+			etx = em.getTransaction();
+			etx.begin();
+			result = em.createQuery("FROM ProductsBean")
 						  .getResultList();
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 

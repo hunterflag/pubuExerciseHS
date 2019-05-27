@@ -2,44 +2,50 @@ package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
-import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.com.pubu.hunter.utils.JpaUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class CustomersDaoImpl implements CustomersDao {
-	SessionFactory factory;
+    private EntityManagerFactory emFactory;
+	
 	public CustomersDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+		HunterDebug.traceMessage();
+		emFactory= JpaUtils.getEntityManagerFactory();
 	}
 	
 	public void closeFactory() {
-		factory.close();
+		HunterDebug.traceMessage();
+		emFactory.close();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public CustomersBean getByAccount(String account) {
+		HunterDebug.traceMessage();
 		CustomersBean result = null;
 		//輸入資料檢查
 		if(account.isEmpty()) return result;			//沒輸入
 		if (!isAccountExist(account)) return result;	//無此帳號
 		
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		try {
-			tx = session.beginTransaction();
-			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
-			Query<CustomersBean> query = session.createQuery(qryHqlStr);
+			etx = em.getTransaction();
+			etx.begin();
+			String qryJpqlStr = "FROM CustomersBean WHERE ctm_account = :account";
+//			Query<CustomersBean> query = em.createQuery(qryJpqlStr);
+			Query query = em.createQuery(qryJpqlStr);
 			query.setParameter("account", account);
 			result = (CustomersBean) query.getSingleResult();
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return result;
@@ -49,19 +55,21 @@ public class CustomersDaoImpl implements CustomersDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isAccountExist(String account) {
+		HunterDebug.traceMessage();
 		boolean result = false;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		try {
-			tx = session.beginTransaction();
-			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
-			Query<CustomersBean> query = session.createQuery(qryHqlStr);
+			etx = em.getTransaction();
+			etx.begin();
+			String qryJpqlStr = "FROM CustomersBean WHERE ctm_account = :account";
+			Query query = em.createQuery(qryJpqlStr);
 			query.setParameter("account", account);
 			List<CustomersBean> list = query.getResultList();
 			if (list.size() > 0) result = true;
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return result;
@@ -69,6 +77,7 @@ public class CustomersDaoImpl implements CustomersDao {
 
 	@Override
 	public int getIdByAccount(String account) {
+		HunterDebug.traceMessage();
 		int id=0;
 		CustomersBean bean = getByAccount(account);
 		id = bean.getCtm_id();
@@ -77,15 +86,17 @@ public class CustomersDaoImpl implements CustomersDao {
 	
 	@Override
 	public CustomersBean getById(Integer id) {
+		HunterDebug.traceMessage();
 		CustomersBean bean = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		try {
-			tx = session.beginTransaction();
-			bean = (CustomersBean) session.get(CustomersBean.class, id);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			bean = (CustomersBean) em.find(CustomersBean.class, id);
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return bean;
@@ -93,7 +104,9 @@ public class CustomersDaoImpl implements CustomersDao {
 
 	@Override
 	public CustomersBean getById(int id) {
+		HunterDebug.traceMessage();
 		return getById(Integer.valueOf(id));
 	}
 
 }
+

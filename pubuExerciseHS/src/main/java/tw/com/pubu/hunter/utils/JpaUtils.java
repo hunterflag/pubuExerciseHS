@@ -23,4 +23,8 @@ public class JpaUtils {
 	public static void shutdown() {
 		getEntityManagerFactory().close();
 	}
+
+	public static void close() {
+		shutdown();
+	}
 }

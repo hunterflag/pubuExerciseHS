@@ -9,6 +9,7 @@ import tw.com.pubu.hunter.bean.OrderDetailsBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.bean.ShoppingCartsBean;
+import tw.com.pubu.hunter.utils.JpaUtils;
 import tw.idv.hunter.tool.HunterDebug;
 
 public class TestJPA {
@@ -17,7 +18,8 @@ public class TestJPA {
     
     public static void main(String[] args) {
     	HunterDebug.traceMessage();
-    	emf = Persistence.createEntityManagerFactory("example");
+//    	emf = Persistence.createEntityManagerFactory("example");
+    	emf = JpaUtils.getEntityManagerFactory();
         em = emf.createEntityManager();
        
         CustomersBean ctmBean = em.find(CustomersBean.class, 1);
