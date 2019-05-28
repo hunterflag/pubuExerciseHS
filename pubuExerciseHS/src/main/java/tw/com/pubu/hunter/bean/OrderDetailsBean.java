@@ -1,5 +1,7 @@
 package tw.com.pubu.hunter.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="order_details")
-public class OrderDetailsBean {
+public class OrderDetailsBean implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private Integer oddt_id;
 	private ProductsBean pdtBean;	//資料表 欄位名稱為 pd_id
 	private Integer oddt_price;

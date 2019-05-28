@@ -1,5 +1,6 @@
 package tw.com.pubu.hunter.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -14,7 +15,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="orders")
-public class OrdersBean {
+public class OrdersBean  implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private Integer od_id;	
 	private Timestamp od_time = new Timestamp(new Date().getTime());	//下單時間
 	private CustomersBean ctmBean;

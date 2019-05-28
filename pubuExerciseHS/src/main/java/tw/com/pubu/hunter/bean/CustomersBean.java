@@ -8,10 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name="customers")
 public class CustomersBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private Integer ctm_id;	
 	private String ctm_account;

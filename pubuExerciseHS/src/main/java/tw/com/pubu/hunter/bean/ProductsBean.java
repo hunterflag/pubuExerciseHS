@@ -8,10 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name="products")
 public class ProductsBean implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private Integer pd_id;
 	private String pd_name;
 	private Double pd_price;
