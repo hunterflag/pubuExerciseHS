@@ -2,40 +2,52 @@ package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import tw.com.pubu.hunter.bean.OrderDetailsBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.OrderDetailsDao;
-import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.com.pubu.hunter.utils.JpaUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class OrderDetailsDaoImpl implements OrderDetailsDao {
-	SessionFactory factory;
+	EntityManagerFactory emFactory;
 	
 	public OrderDetailsDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+		HunterDebug.traceMessage();
+		emFactory = JpaUtils.getEntityManagerFactory();
 	}
 	
 	public void closeFactory() {
-		factory.close();
+		HunterDebug.traceMessage();
+		emFactory.close();
 	}
 	
 	@Override
 	public Object insert(OrderDetailsBean insObj) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		Object key = null;
 		
 		try {
-			tx = session.beginTransaction();
-			key = session.save(insObj);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			//XXX Detached again!
+			HunterDebug.showKeyValue("insObj: ", insObj.toString());
+			HunterDebug.showKeyValue("Managed? ", String.valueOf(em.contains(insObj)));
+			HunterDebug.showKeyValue("Managed? ", String.valueOf(em.contains(insObj.getOdBean())));
+			HunterDebug.showKeyValue("Managed? ", String.valueOf(em.contains(insObj.getPdtBean())));
+			em.merge(insObj);
+//			em.persist(insObj);
+			key = insObj.getOddt_id(); 
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return key;
@@ -43,6 +55,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 
 	@Override
 	public Object insert(ProductsBean pdtBean, int number, int price, OrdersBean odBean) {
+		HunterDebug.traceMessage();
 		Object key = null;
 		OrderDetailsBean insObj = new OrderDetailsBean(pdtBean, number, price, odBean);
 		key = insert(insObj);
@@ -52,19 +65,21 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderDetailsBean> getAllsById(int od_id){
+		HunterDebug.traceMessage();
 		List<OrderDetailsBean> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		try {
-			tx = session.beginTransaction();
+			etx = em.getTransaction();
+			etx.begin();
 			String qryHqlStr = "FROM OrderDetailsBean AS oddtb WHERE oddtb.odBean.od_id = :od_id";
-			Query<OrderDetailsBean> query = session.createQuery(qryHqlStr);
+			Query query = em.createQuery(qryHqlStr);
 			query.setParameter("od_id", od_id);
 			result = query.getResultList();
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return result;

@@ -2,40 +2,47 @@ package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.OrdersDao;
-import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.com.pubu.hunter.utils.JpaUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class OrdersDaoImpl implements OrdersDao {
-	SessionFactory factory;
+	EntityManagerFactory emFactory;
 	
 	public OrdersDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+		HunterDebug.traceMessage();
+		emFactory = JpaUtils.getEntityManagerFactory();
 	}
 	
 	public void closeFactory() {
-		factory.close();
+		HunterDebug.traceMessage();
+		emFactory.close();
 	}
 	
 	@Override
 	public Object insert(OrdersBean insObj) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		Object key = null;
 		
 		try {
-			tx = session.beginTransaction();
-			key = session.save(insObj);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+//			em.persist(insObj); //XXX persistence 不能用 Detached Entity?
+			OrdersBean persistenceObj = em.merge(insObj);
+			key = persistenceObj.getOd_id();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return key;
@@ -43,6 +50,7 @@ public class OrdersDaoImpl implements OrdersDao {
 
 	@Override
 	public Object insert(int ctm_id) {
+		HunterDebug.traceMessage();
 		CustomersDao ctmDao = new CustomersDaoImpl();
 		CustomersBean ctmBean = ctmDao.getById(ctm_id);
 		
@@ -53,19 +61,21 @@ public class OrdersDaoImpl implements OrdersDao {
 	
 	@Override
 	public boolean update(int od_id, int od_total_price) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		boolean isSuccess = false;
 		
 		try {
-			tx = session.beginTransaction();
-			OrdersBean bean = session.get(OrdersBean.class, od_id);
+			etx = em.getTransaction();
+			etx.begin();
+			OrdersBean bean = em.find(OrdersBean.class, od_id);
 			bean.setOd_total_price(od_total_price);
 			bean.setOd_state("close");
 			isSuccess = true;
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -74,16 +84,18 @@ public class OrdersDaoImpl implements OrdersDao {
 
 	@Override
 	public OrdersBean getById(Integer od_id) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		HunterDebug.traceMessage();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		OrdersBean result = null;
 		
 		try {
-			tx = session.beginTransaction();
-			result = session.get(OrdersBean.class, od_id);
-			tx.commit();
+			etx = em.getTransaction();
+			etx.begin();
+			result = em.find(OrdersBean.class, od_id);
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		
@@ -92,6 +104,7 @@ public class OrdersDaoImpl implements OrdersDao {
 
 	@Override
 	public OrdersBean getById(int od_id) {
+		HunterDebug.traceMessage();
 		OrdersBean result = null;
 		result = getById(Integer.valueOf(od_id));
 		return result;
@@ -100,19 +113,21 @@ public class OrdersDaoImpl implements OrdersDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrdersBean> getAllsByCustomer(int ctmId){
+		HunterDebug.traceMessage();
 		List<OrdersBean> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		
 		try {
-			tx = session.beginTransaction();
+			etx = em.getTransaction();
+			etx.begin();
 			String qryHqlStr = "FROM OrdersBean AS ob WHERE ob.ctmBean.ctm_id = :ctmId";
-			Query<OrdersBean> query = session.createQuery(qryHqlStr);
+			Query query = em.createQuery(qryHqlStr);
 			query.setParameter("ctmId", ctmId);
 			result = query.getResultList();
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return result;
@@ -121,16 +136,18 @@ public class OrdersDaoImpl implements OrdersDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrdersBean> getAlls(){
+		HunterDebug.traceMessage();
 		List<OrdersBean> result = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
 		try {
-			tx = session.beginTransaction();
-			result = session.createQuery("FROM Orders")
+			etx = em.getTransaction();
+			etx.begin();
+			result = em.createQuery("FROM Orders")
 							.getResultList();
-			tx.commit();
+			etx.commit();
 		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
+			if(etx!=null) etx.rollback();
 			System.out.println(e.getMessage());
 		}
 		return result;

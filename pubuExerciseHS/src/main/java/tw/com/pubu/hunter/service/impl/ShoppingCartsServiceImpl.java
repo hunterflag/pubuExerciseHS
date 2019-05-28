@@ -2,15 +2,10 @@ package tw.com.pubu.hunter.service.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import tw.com.pubu.hunter.bean.CustomersBean;
-import tw.com.pubu.hunter.bean.OrderDetailsBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.bean.ShoppingCartsBean;
-import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.OrderDetailsDao;
 import tw.com.pubu.hunter.dao.OrdersDao;
 import tw.com.pubu.hunter.dao.ShoppingCartsDao;
@@ -20,7 +15,6 @@ import tw.com.pubu.hunter.dao.impl.OrdersDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
 import tw.com.pubu.hunter.service.ShoppingCartsService;
-import tw.idv.hunter.tool.HunterDebug;
 
 public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 

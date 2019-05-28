@@ -1,11 +1,14 @@
 package tw.idv.hunter.tool;
 
 public class HunterDebug {
-	private static int traceNo = 0;
-	private static boolean traceOn = true;
+	//TODO 把開關改寫在 .properties
+	/****  追蹤狀態開關  ****/
+	private static boolean traceOn = true;	
+//	private static boolean traceOn = false;	
+
+	private static int traceNo = 0;		
 	private static int pos = 2;
 	private static String msg = "none";
-	
 	
 	public static void showKeyValue(String key, String value) {
 		System.out.println("<<<<<<<<---------------------------------------------------------------");
@@ -30,8 +33,9 @@ public class HunterDebug {
 		if(!traceOn) return;
 		if(depth > 0) {
 			traceNo++;
-			System.out.println("<<<<<<<< -----------------------------------------------------------");
-			System.out.println("traceNo=" + traceNo + ",\tlength: " + arr.length);  
+			System.out.printf("<<<<<<<< traceNo: %d, \t Depth: %d -----------------------------------------------------------\n", 
+								traceNo, 
+								arr.length);
 			for(int i=1; i<depth; i++) {
 					System.out.println("\ti=" + i + "\t"
 							+"method: " + arr[i].getMethodName() + "(),\t"
@@ -43,11 +47,12 @@ public class HunterDebug {
 	public static void traceMessage() {
 		if(!traceOn) return; 
 		traceNo++;
-		System.out.println("<<<<<<<< -----------------------------------------------------------");
-		System.out.println("traceNo=" + traceNo + ",\tlength: " + Thread.currentThread().getStackTrace().length + "\n"   
-				+"msg: " + msg + "\t"
-				+"method: " + Thread.currentThread().getStackTrace()[pos].getMethodName() + "(),\t"
-				+"Class: " + Thread.currentThread().getStackTrace()[pos].getClassName());
+		System.out.printf("<<<<<<<< traceNo: %d, \t Depth: %d -----------------------------------------------------------\n", 
+							traceNo, 
+							Thread.currentThread().getStackTrace().length);
+		System.out.println("msg: " + msg + "\t"
+							+"method: " + Thread.currentThread().getStackTrace()[pos].getMethodName() + "(),\t"
+							+"Class: " + Thread.currentThread().getStackTrace()[pos].getClassName());
 		System.out.println(">>>>>>>> -----------------------------------------------------------");
 	}
 	/**
