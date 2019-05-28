@@ -1,11 +1,15 @@
 package tw.com.pubu.hunter.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +20,7 @@ public class CustomersBean implements Serializable{
 	private Integer ctm_id;	
 	private String ctm_account;
 	private String ctm_password;
+	private Set<ShoppingCartsBean> scBeans = new HashSet<>();
 
 	public CustomersBean() {
 		super();
@@ -52,10 +57,26 @@ public class CustomersBean implements Serializable{
 		this.ctm_password = ctm_password;
 	}
 	
+	@OneToMany(mappedBy = "ctmBean", cascade = CascadeType.ALL)
+	public Set<ShoppingCartsBean> getScBeans() {
+		return scBeans;
+	}
+
+	public void setScBeans(Set<ShoppingCartsBean> scBeans) {
+		this.scBeans = scBeans;
+	}
+
 	@Override
 	public String toString() {
 		return "CustomersBean [ctm_id=" + ctm_id + ", ctm_account=" + ctm_account + ", ctm_password=" + ctm_password
-				+ "]";
+				+ ", scBeans=" + scBeans + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "CustomersBean [ctm_id=" + ctm_id + ", ctm_account=" + ctm_account + ", ctm_password=" + ctm_password
+//				+ "]";
+//	}
+	
 	
 }

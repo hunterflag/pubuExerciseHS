@@ -1,6 +1,8 @@
 package tw.com.pubu.hunter.dao.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
+import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.utils.JpaUtils;
 import tw.idv.hunter.tool.HunterDebug;
@@ -108,5 +111,27 @@ public class CustomersDaoImpl implements CustomersDao {
 		return getById(Integer.valueOf(id));
 	}
 
+	@Override
+	public Set<ShoppingCartsBean> getItemsFromShoppingCartByCustomerId(int id){
+		Set<ShoppingCartsBean> result = new HashSet<ShoppingCartsBean>();
+		EntityManager em = emFactory.createEntityManager();
+		EntityTransaction etx = null;
+		
+		try {
+			etx = em.getTransaction();
+			etx.begin();
+			String qlStr = "FROM CustomersBean WHERE ctm_id = :ctm_id";
+			Query query = em.createQuery(qlStr);
+			query.setParameter("ctm_id", id);
+			
+			result = ((CustomersBean) query.getResultList().get(0)).getScBeans();
+			HunterDebug.showKeyValue("scBeanFrom Customer:", result.toString());
+			etx.commit();
+		}catch(Exception e) {
+			if(etx!=null) etx.rollback();
+			System.out.println(e.getMessage());
+		}
+		return result;
+	}
 }
 

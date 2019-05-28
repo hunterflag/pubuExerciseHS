@@ -2,6 +2,7 @@ package tw.com.pubu.hunter.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,7 +46,7 @@ public class ShoppingCartsBean implements Serializable {
 	}
 
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="ctm_id")
 	public CustomersBean getCtmBean() {
 		return ctmBean;
