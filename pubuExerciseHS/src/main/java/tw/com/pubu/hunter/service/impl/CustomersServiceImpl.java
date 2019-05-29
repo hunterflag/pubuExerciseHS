@@ -38,4 +38,15 @@ public class CustomersServiceImpl implements CustomersService {
 		id = dao.getIdByAccount(account);
 		return id;
 	}
+	
+	public CustomersBean getById(Integer id) {
+		CustomersBean result=null;
+		CustomersDao dao = new CustomersDaoImpl();
+		result = dao.getById(id);
+		return result;
+	}
+	public CustomersBean getById(int id) {
+		return getById(Integer.valueOf(id));
+	}
+
 }

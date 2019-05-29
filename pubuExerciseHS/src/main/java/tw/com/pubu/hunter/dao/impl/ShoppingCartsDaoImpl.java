@@ -27,6 +27,7 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	@Override
 	public Object insert(ShoppingCartsBean insObj) {
 		HunterDebug.traceMessage();
+		HunterDebug.showKeyValue("insObj(scBean)", insObj.toString());
 		EntityManager em = emFactory.createEntityManager();
 		EntityTransaction etx = null;
 		Object key = null;
@@ -34,8 +35,11 @@ public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 		try {
 			etx = em.getTransaction();
 			etx.begin();
-			em.persist(insObj);
-			key = insObj.getSc_id();
+			//單向關係可用
+//			em.persist(insObj);
+			//雙向關係可用
+			ShoppingCartsBean newObj = em.merge(insObj);
+			key = newObj.getSc_id();
 			etx.commit();
 		}catch(Exception e) {
 			if(etx!=null) etx.rollback();

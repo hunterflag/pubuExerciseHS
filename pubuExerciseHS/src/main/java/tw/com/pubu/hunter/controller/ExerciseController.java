@@ -26,6 +26,7 @@ import tw.com.pubu.hunter.service.impl.OrderDetailsServiceImpl;
 import tw.com.pubu.hunter.service.impl.OrdersServiceImpl;
 import tw.com.pubu.hunter.service.impl.ProductsServiceImpl;
 import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
+import tw.idv.hunter.tool.HunterDebug;
 
 @Controller
 public class ExerciseController {
@@ -99,11 +100,18 @@ public class ExerciseController {
 	@RequestMapping(value= {"/getDatasForShowShoppingCart"}, 
 					method=RequestMethod.GET)
 	public String getDatasForShowShoppingCart(Model model, HttpServletRequest request){
+		HunterDebug.traceMessage();
 		if(request.getSession().getAttribute("loginId") ==null) return "showShoppingCart";
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
-
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
+		//單向關係
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+//		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
+		
+		//雙向關係
+		CustomersService service = new CustomersServiceImpl();
+		List<ShoppingCartsBean> list = service.getById(ctm_id)
+											  .getScBeans();
+		
 		model.addAttribute("scs", list);
 		return "showShoppingCart";
 	}

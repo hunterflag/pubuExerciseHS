@@ -15,6 +15,7 @@ import tw.com.pubu.hunter.dao.impl.OrdersDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
 import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
 import tw.com.pubu.hunter.service.ShoppingCartsService;
+import tw.idv.hunter.tool.HunterDebug;
 
 public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 
@@ -26,6 +27,8 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 		
 		//項目不存在, 新增項目
 		CustomersBean cBean = new CustomersDaoImpl().getById(memberId);
+		HunterDebug.showKeyValue("cBean", cBean.toString());
+		HunterDebug.showKeyValue("cBean.scBean", cBean.getScBeans().toString());
 		ProductsBean pBean = new ProductsDaoImpl().getById(productId);
 		double price = (int)(pBean.getPd_price() / 100) * 100;
 		ShoppingCartsBean newObj = new ShoppingCartsBean(cBean, pBean, price);

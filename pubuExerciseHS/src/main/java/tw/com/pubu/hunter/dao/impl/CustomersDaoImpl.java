@@ -1,8 +1,6 @@
 package tw.com.pubu.hunter.dao.impl;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,10 +40,11 @@ public class CustomersDaoImpl implements CustomersDao {
 			etx = em.getTransaction();
 			etx.begin();
 			String qryJpqlStr = "FROM CustomersBean WHERE ctm_account = :account";
-//			Query<CustomersBean> query = em.createQuery(qryJpqlStr);
 			Query query = em.createQuery(qryJpqlStr);
 			query.setParameter("account", account);
 			result = (CustomersBean) query.getSingleResult();
+			//TODO 表示雙向關係的物件, 實際上, 不會儲存在資料表中; 因此從資料表檢索出來後, 必須手動補上資料, Hibernate 不會自動處理嗎?
+			result.setScBeans(getItemsFromShoppingCartByCustomerId(result.getCtm_id()));
 			etx.commit();
 		}catch(Exception e) {
 			if(etx!=null) etx.rollback();
@@ -97,6 +96,8 @@ public class CustomersDaoImpl implements CustomersDao {
 			etx = em.getTransaction();
 			etx.begin();
 			bean = (CustomersBean) em.find(CustomersBean.class, id);
+			//XXX 手動加入雙向關係物件
+			bean.setScBeans(getItemsFromShoppingCartByCustomerId(bean.getCtm_id()));
 			etx.commit();
 		}catch(Exception e) {
 			if(etx!=null) etx.rollback();
@@ -111,20 +112,20 @@ public class CustomersDaoImpl implements CustomersDao {
 		return getById(Integer.valueOf(id));
 	}
 
-	@Override
-	public Set<ShoppingCartsBean> getItemsFromShoppingCartByCustomerId(int id){
-		Set<ShoppingCartsBean> result = new HashSet<ShoppingCartsBean>();
+	@SuppressWarnings("unchecked")
+	public List<ShoppingCartsBean> getItemsFromShoppingCartByCustomerId(int id){
+		HunterDebug.traceMessage();
+		List<ShoppingCartsBean> result=null; 
 		EntityManager em = emFactory.createEntityManager();
 		EntityTransaction etx = null;
 		
 		try {
 			etx = em.getTransaction();
 			etx.begin();
-			String qlStr = "FROM CustomersBean WHERE ctm_id = :ctm_id";
-			Query query = em.createQuery(qlStr);
-			query.setParameter("ctm_id", id);
-			
-			result = ((CustomersBean) query.getResultList().get(0)).getScBeans();
+			String qlStr = "FROM ShoppingCartsBean WHERE ctm_id = :ctm_id";
+			result = em.createQuery(qlStr)
+					   .setParameter("ctm_id", id)
+					   .getResultList();
 			HunterDebug.showKeyValue("scBeanFrom Customer:", result.toString());
 			etx.commit();
 		}catch(Exception e) {

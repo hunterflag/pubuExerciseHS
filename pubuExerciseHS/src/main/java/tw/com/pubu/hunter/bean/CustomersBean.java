@@ -2,6 +2,7 @@ package tw.com.pubu.hunter.bean;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import tw.com.pubu.hunter.dao.ShoppingCartsDao;
+import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
+import tw.idv.hunter.tool.HunterDebug;
+
 @Entity
 @Table(name="customers")
 public class CustomersBean implements Serializable{
@@ -20,14 +25,21 @@ public class CustomersBean implements Serializable{
 	private Integer ctm_id;	
 	private String ctm_account;
 	private String ctm_password;
-	private Set<ShoppingCartsBean> scBeans = new HashSet<>();
+	private List<ShoppingCartsBean> scBeans;	// 資料表不存在此欄位, 物件觀的關係
 
 	public CustomersBean() {
 		super();
+		HunterDebug.traceMessage();
+		ShoppingCartsDao dao = new ShoppingCartsDaoImpl();
+		if(ctm_id != null) {
+			scBeans = dao.getItemsByCustomer(ctm_id);
+		}
+		
 	}
 	
 	public CustomersBean(String ctm_account, String ctm_password) {
 		super();
+		HunterDebug.traceMessage();
 		this.ctm_account = ctm_account;
 		this.ctm_password = ctm_password;
 	}
@@ -58,25 +70,25 @@ public class CustomersBean implements Serializable{
 	}
 	
 	@OneToMany(mappedBy = "ctmBean", cascade = CascadeType.ALL)
-	public Set<ShoppingCartsBean> getScBeans() {
+	public List<ShoppingCartsBean> getScBeans() {
 		return scBeans;
 	}
 
-	public void setScBeans(Set<ShoppingCartsBean> scBeans) {
+	public void setScBeans(List<ShoppingCartsBean> scBeans) {
 		this.scBeans = scBeans;
-	}
-
-	@Override
-	public String toString() {
-		return "CustomersBean [ctm_id=" + ctm_id + ", ctm_account=" + ctm_account + ", ctm_password=" + ctm_password
-				+ ", scBeans=" + scBeans + "]";
 	}
 
 //	@Override
 //	public String toString() {
 //		return "CustomersBean [ctm_id=" + ctm_id + ", ctm_account=" + ctm_account + ", ctm_password=" + ctm_password
-//				+ "]";
+//				+ ", scBeans=" + scBeans + "]";
 //	}
+
+	@Override
+	public String toString() {
+		return "CustomersBean [ctm_id=" + ctm_id + ", ctm_account=" + ctm_account + ", ctm_password=" + ctm_password
+				+ "]";
+	}
 	
 	
 }

@@ -27,7 +27,8 @@ public class TestJPA {
         CustomersBean ctmBean = em.find(CustomersBean.class, 2);
         HunterDebug.showKeyValue("ctmBean:", ctmBean.toString());
         CustomersDao dao = new CustomersDaoImpl();
-        HunterDebug.showKeyValue("ccc", dao.getItemsFromShoppingCartByCustomerId(2).toString());
+        HunterDebug.showKeyValue("ccc", dao.getById(3).toString());
+        HunterDebug.showKeyValue("ccc", dao.getById(3).getScBeans().toString());
         
 //        ProductsBean pdtBean = em.find(ProductsBean.class, 1);
 //        HunterDebug.showKeyValue("pdtBean:", pdtBean.toString());
