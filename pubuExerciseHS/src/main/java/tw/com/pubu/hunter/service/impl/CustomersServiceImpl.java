@@ -1,6 +1,7 @@
 package tw.com.pubu.hunter.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
@@ -12,6 +13,7 @@ import tw.com.pubu.hunter.service.CustomersService;
 public class CustomersServiceImpl implements CustomersService {
 
 	@Override
+	@Transactional
 	public LoginResult login(String account, String password) {
 		LoginResult result = LoginResult.Error;
 		CustomersDao dao = new CustomersDaoImpl();

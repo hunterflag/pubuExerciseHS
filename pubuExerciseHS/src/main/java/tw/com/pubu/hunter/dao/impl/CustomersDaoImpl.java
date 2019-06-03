@@ -26,8 +26,8 @@ public class CustomersDaoImpl implements CustomersDao {
 //		factory.close();
 //	}
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public CustomersBean getByAccount(String account) {
 		CustomersBean result = null;
 		//輸入資料檢查
@@ -35,20 +35,41 @@ public class CustomersDaoImpl implements CustomersDao {
 		if (!isAccountExist(account)) return result;	//無此帳號
 		
 		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
+//		Transaction tx = null;
+//		try {
+//			tx = session.beginTransaction();
 			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
 			Query<CustomersBean> query = session.createQuery(qryHqlStr);
 			query.setParameter("account", account);
 			result = (CustomersBean) query.getSingleResult();
-			tx.commit();
-		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
-			System.out.println(e.getMessage());
-		}
+//			tx.commit();
+//		}catch(Exception e) {
+//			if(tx!=null) tx.rollback();
+//			System.out.println(e.getMessage());
+//		}
 		return result;
 	}
+//	public CustomersBean getByAccount(String account) {
+//		CustomersBean result = null;
+//		//輸入資料檢查
+//		if(account.isEmpty()) return result;			//沒輸入
+//		if (!isAccountExist(account)) return result;	//無此帳號
+//		
+//		Session session = factory.getCurrentSession();
+//		Transaction tx = null;
+//		try {
+//			tx = session.beginTransaction();
+//			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
+//			Query<CustomersBean> query = session.createQuery(qryHqlStr);
+//			query.setParameter("account", account);
+//			result = (CustomersBean) query.getSingleResult();
+//			tx.commit();
+//		}catch(Exception e) {
+//			if(tx!=null) tx.rollback();
+//			System.out.println(e.getMessage());
+//		}
+//		return result;
+//	}
 	
 	
 	@SuppressWarnings("unchecked")
@@ -56,21 +77,39 @@ public class CustomersDaoImpl implements CustomersDao {
 	public boolean isAccountExist(String account) {
 		boolean result = false;
 		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
+//		Transaction tx = null;
+//		try {
+//			tx = session.beginTransaction();
 			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
 			Query<CustomersBean> query = session.createQuery(qryHqlStr);
 			query.setParameter("account", account);
 			List<CustomersBean> list = query.getResultList();
 			if (list.size() > 0) result = true;
-			tx.commit();
-		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
-			System.out.println(e.getMessage());
-		}
+//			tx.commit();
+//		}catch(Exception e) {
+//			if(tx!=null) tx.rollback();
+//			System.out.println(e.getMessage());
+//		}
 		return result;
 	}
+//	public boolean isAccountExist(String account) {
+//		boolean result = false;
+//		Session session = factory.getCurrentSession();
+//		Transaction tx = null;
+//		try {
+//			tx = session.beginTransaction();
+//			String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
+//			Query<CustomersBean> query = session.createQuery(qryHqlStr);
+//			query.setParameter("account", account);
+//			List<CustomersBean> list = query.getResultList();
+//			if (list.size() > 0) result = true;
+//			tx.commit();
+//		}catch(Exception e) {
+//			if(tx!=null) tx.rollback();
+//			System.out.println(e.getMessage());
+//		}
+//		return result;
+//	}
 
 	@Override
 	public int getIdByAccount(String account) {
@@ -84,17 +123,31 @@ public class CustomersDaoImpl implements CustomersDao {
 	public CustomersBean getById(Integer id) {
 		CustomersBean bean = null;
 		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
+//		Transaction tx = null;
+//		try {
+//			tx = session.beginTransaction();
 			bean = (CustomersBean) session.get(CustomersBean.class, id);
-			tx.commit();
-		}catch(Exception e) {
-			if(tx!=null) tx.rollback();
-			System.out.println(e.getMessage());
-		}
+//			tx.commit();
+//		}catch(Exception e) {
+//			if(tx!=null) tx.rollback();
+//			System.out.println(e.getMessage());
+//		}
 		return bean;
 	}
+//	public CustomersBean getById(Integer id) {
+//		CustomersBean bean = null;
+//		Session session = factory.getCurrentSession();
+//		Transaction tx = null;
+//		try {
+//			tx = session.beginTransaction();
+//			bean = (CustomersBean) session.get(CustomersBean.class, id);
+//			tx.commit();
+//		}catch(Exception e) {
+//			if(tx!=null) tx.rollback();
+//			System.out.println(e.getMessage());
+//		}
+//		return bean;
+//	}
 
 	@Override
 	public CustomersBean getById(int id) {

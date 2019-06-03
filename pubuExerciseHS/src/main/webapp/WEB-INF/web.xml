@@ -11,16 +11,25 @@
          version="3.1">
   <display-name>Archetype Created Web Application</display-name>
   
-  <servlet>
-  	<servlet-name>HelloWorld</servlet-name>
-<!--   	<display-name>HelloWorld</display-name> -->
-<!--   	<description></description> -->
-  	<servlet-class>tw.idv.hunter.test.helloworld.HelloWorld</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>HelloWorld</servlet-name>
-  	<url-pattern>/HelloWorld</url-pattern>
-  </servlet-mapping>
+<!--   <servlet> -->
+<!--   	<servlet-name>HelloWorld</servlet-name> -->
+<!--   	<servlet-class>tw.idv.hunter.test.helloworld.HelloWorld</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--   	<servlet-name>HelloWorld</servlet-name> -->
+<!--   	<url-pattern>/HelloWorld</url-pattern> -->
+<!--   </servlet-mapping> -->
+  
+  <!-- needed for ContextLoaderListener -->
+<!-- 	<context-param> -->
+<!-- 		<param-name>contextConfigLocation</param-name> -->
+<!-- 		<param-value>/WEB-INF/Beans.xml</param-value> -->
+<!-- 	</context-param> -->
+
+	<!-- Bootstraps the root web application context before servlet initialization -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+<!-- 	</listener> -->
   
 </web-app>
 

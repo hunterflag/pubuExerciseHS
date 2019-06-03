@@ -23,6 +23,7 @@ public class RootAppConfig {
 	//DataSource 資料庫連線資訊
 	@Bean
 	public DataSource dataSource() {
+		HunterDebug.traceMessage();
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		ds.setUser("root");
 		ds.setPassword("123456");
@@ -37,10 +38,12 @@ public class RootAppConfig {
 		return ds;
 	}
 		
-	//SessionFactory
+	//從 Bean dataSource, 建立 Hibernate 的 SessionFactory
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
+		HunterDebug.traceMessage();
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean(); 
+		HunterDebug.showKeyValue("factory:", factory.toString());
 		factory.setDataSource(dataSource());
 		factory.setPackagesToScan(new String[]{
 					"tw.com.pubu.hunter"
@@ -48,16 +51,8 @@ public class RootAppConfig {
 		factory.setHibernateProperties(additionalProperties());
 		return factory;
 	}	
-	
-	@Bean(name="transactionManager")
-	@Autowired
-	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory);
-		return txManager;
-	}
-	
 	private Properties additionalProperties() {
+		HunterDebug.traceMessage();
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", org.hibernate.dialect.MySQL8Dialect.class);
 		properties.put("hibernate.show_sql", Boolean.TRUE);
@@ -66,6 +61,17 @@ public class RootAppConfig {
 		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;
 	}
+	
+	
+	@Bean(name="transactionManager")
+	@Autowired
+	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+		HunterDebug.traceMessage();
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory);
+		return txManager;
+	}
+	
 	
 	
 	
