@@ -6,20 +6,25 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 
+@Repository
 public class CustomersDaoImpl implements CustomersDao {
-	SessionFactory factory;
-	public CustomersDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
-	}
+	@Autowired
+	private SessionFactory factory;
 	
-	public void closeFactory() {
-		factory.close();
-	}
+//	public CustomersDaoImpl() {
+//		factory = HibernateUtils.getSessionFactory();
+//	}
+//	
+//	public void closeFactory() {
+//		factory.close();
+//	}
 
 	@SuppressWarnings("unchecked")
 	@Override

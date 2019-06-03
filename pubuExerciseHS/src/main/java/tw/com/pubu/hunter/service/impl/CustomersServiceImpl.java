@@ -1,11 +1,14 @@
 package tw.com.pubu.hunter.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
 import tw.com.pubu.hunter.enums.LoginResult;
 import tw.com.pubu.hunter.service.CustomersService;
 
+@Service
 public class CustomersServiceImpl implements CustomersService {
 
 	@Override
