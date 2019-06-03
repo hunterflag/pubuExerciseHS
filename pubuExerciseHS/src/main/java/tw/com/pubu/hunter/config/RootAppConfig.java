@@ -32,7 +32,7 @@ public class RootAppConfig {
 		}catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
-		ds.setJdbcUrl("jdbc:mysql://localhost:3306/pubu_exercise?useSSL=false&useUnicode=yes&characterEncoding=utf8&serverTimezone=Asia/Taipei");
+		ds.setJdbcUrl("jdbc:mysql://localhost:3306/pubu_exercise?useSSL=false&useUnicode=yes&characterEncoding=utf8&serverTimezone=Asia/Taipei&allowPublicKeyRetrieval=true");
 		ds.setInitialPoolSize(4);
 		ds.setMaxPoolSize(8);
 		return ds;

@@ -7,11 +7,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<bean id="customer3" class="tw.com.pubu.hunter.bean.CustomersBean">
+	<bean id="customer1" class="tw.com.pubu.hunter.bean.CustomersBean">
 		<property name="ctm_account" value="bean01" />
 		<property name="ctm_password" value="bean01pwd" />
 	</bean>
-	<bean id="customer4" class="tw.com.pubu.hunter.bean.CustomersBean">
+	<bean id="customer2" class="tw.com.pubu.hunter.bean.CustomersBean">
 		<property name="ctm_account" value="bean01" />
 		<property name="ctm_password" value="bean01pwd" />
 	</bean>
