@@ -43,12 +43,12 @@ public class RootAppConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		HunterDebug.traceMessage();
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean(); 
-		HunterDebug.showKeyValue("factory:", factory.toString());
 		factory.setDataSource(dataSource());
 		factory.setPackagesToScan(new String[]{
 					"tw.com.pubu.hunter"
 				});
 		factory.setHibernateProperties(additionalProperties());
+		HunterDebug.showKeyValue("factory:", factory.toString());
 		return factory;
 	}	
 	private Properties additionalProperties() {

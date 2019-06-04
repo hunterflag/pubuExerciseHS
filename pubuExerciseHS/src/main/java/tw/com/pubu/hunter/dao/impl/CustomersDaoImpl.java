@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.utils.HibernateUtils;
+import tw.idv.hunter.tool.HunterDebug;
 
 @Repository
 public class CustomersDaoImpl implements CustomersDao {
@@ -75,6 +76,8 @@ public class CustomersDaoImpl implements CustomersDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isAccountExist(String account) {
+		if(factory == null) HunterDebug.showMessage("null pointer");
+		else HunterDebug.showKeyValue("factory", factory.toString());
 		boolean result = false;
 		Session session = factory.getCurrentSession();
 //		Transaction tx = null;

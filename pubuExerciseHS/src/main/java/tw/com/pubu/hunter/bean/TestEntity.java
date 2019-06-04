@@ -4,12 +4,22 @@ import tw.idv.hunter.tool.HunterDebug;
 
 public class TestEntity {
 
-	private String fieldName1 = "fieldName1";
-	private String fieldName2 = "fieldName2";
+	private String fieldName1 = "entityDefaultValue1";
+	private String fieldName2 = "entityDefaultValue2";
 	
 	public TestEntity() {
-		super();
 		HunterDebug.traceMessage();
+	}
+
+	public TestEntity(String fieldName1) {
+		HunterDebug.traceMessage();
+		this.fieldName1 =fieldName1; 
+	}
+
+	public TestEntity(String fieldName1, String fieldName2) {
+		HunterDebug.traceMessage();
+		this.fieldName1 = fieldName1; 
+		this.fieldName2 = fieldName2; 
 	}
 
 	public String getFieldName1() {
