@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("tw.com.pubu.hunter") //XXX 全部 package 應該是 root, 但怎麼寫?
+@ComponentScan(basePackages= {"tw.com.pubu.hunter"}) //XXX 全部 package 應該是 root, 但怎麼寫?
 /*
 // Java 1.8 後 Deprecated 
 //@SuppressWarnings("deprecation")  

@@ -2,11 +2,16 @@ package tw.com.pubu.hunter.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.dao.OrdersDao;
 import tw.com.pubu.hunter.dao.impl.OrdersDaoImpl;
 import tw.com.pubu.hunter.service.OrdersService;
 
+@Service
+@Transactional
 public class OrdersServiceImpl implements OrdersService {
 
 	@Override

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.OrderDetailsBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
@@ -13,6 +14,7 @@ import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.OrderDetailsDao;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 
+@Repository
 public class OrderDetailsDaoImpl implements OrderDetailsDao {
 	SessionFactory factory;
 	

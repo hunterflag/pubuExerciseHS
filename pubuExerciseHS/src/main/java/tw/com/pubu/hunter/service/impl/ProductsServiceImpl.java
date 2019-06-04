@@ -2,11 +2,16 @@ package tw.com.pubu.hunter.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.ProductsDao;
 import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
 import tw.com.pubu.hunter.service.ProductsService;
 
+@Service
+@Transactional
 public class ProductsServiceImpl implements ProductsService {
 
 	@Override

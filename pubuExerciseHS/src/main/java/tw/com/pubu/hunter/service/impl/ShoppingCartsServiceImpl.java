@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.bean.OrderDetailsBean;
@@ -22,6 +24,8 @@ import tw.com.pubu.hunter.dao.impl.ShoppingCartsDaoImpl;
 import tw.com.pubu.hunter.service.ShoppingCartsService;
 import tw.idv.hunter.tool.HunterDebug;
 
+@Service
+@Transactional
 public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 
 	@Override

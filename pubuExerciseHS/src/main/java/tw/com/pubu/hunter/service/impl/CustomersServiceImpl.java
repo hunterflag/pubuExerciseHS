@@ -10,10 +10,10 @@ import tw.com.pubu.hunter.enums.LoginResult;
 import tw.com.pubu.hunter.service.CustomersService;
 
 @Service
+@Transactional
 public class CustomersServiceImpl implements CustomersService {
 
 	@Override
-	@Transactional
 	public LoginResult login(String account, String password) {
 		LoginResult result = LoginResult.Error;
 		CustomersDao dao = new CustomersDaoImpl();

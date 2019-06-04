@@ -5,12 +5,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.ProductsDao;
 import tw.com.pubu.hunter.enums.RecordStatus;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 
+@Repository
 public class ProductsDaoImpl implements ProductsDao {
 	SessionFactory factory;
 	

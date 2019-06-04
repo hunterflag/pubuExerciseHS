@@ -5,11 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.ShoppingCartsBean;
 import tw.com.pubu.hunter.dao.ShoppingCartsDao;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 
+@Repository
 public class ShoppingCartsDaoImpl implements ShoppingCartsDao {
 	SessionFactory factory;
 	

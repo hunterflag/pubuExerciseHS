@@ -10,31 +10,44 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		
+
 		<c3p0.version>0.9.5.2</c3p0.version>
 		<hibernate.version>5.4.2.Final</hibernate.version>
+		<hibernate.validator>5.4.2.Final</hibernate.validator>
 		<java.version>1.8</java.version>
 		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<mysql.version>8.0.13</mysql.version>
+		<jsp.version>2.3.1</jsp.version>
 		<servlet.version>3.1.0</servlet.version>
-		<servlet.jsp.version>2.3.1</servlet.jsp.version>
 		<spring.data.jpa.version>2.1.2.RELEASE</spring.data.jpa.version>
 		<spring.version>5.1.4.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
-		<!-- JSP/Servlet -->
+		<!-- JSP Dependency -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>${jsp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- JSTL -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!-- JSP/JSTL -->
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
@@ -61,12 +74,18 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- Hibernate Validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator}</version>
+        </dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.slf4j</groupId> -->
+		<!-- <artifactId>slf4j-simple</artifactId> -->
+		<!-- <version>1.7.25</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
