@@ -9,24 +9,24 @@ import tw.com.pubu.hunter.bean.TestEntity;
 import tw.idv.hunter.tool.HunterDebug;
 
 @Configuration
-public class TestEntityBeanConfig {
+public class TestEntityBeanConfig2 {
 
-	public TestEntityBeanConfig() {
+	public TestEntityBeanConfig2() {
 		super();
 		HunterDebug.traceMessage();
 	}
 	
-	@Bean(name="testEntityConfig11")
+	@Bean(name="testEntityConfig21")
 	public TestEntity testEntity1() {
 		HunterDebug.traceMessage();
 		
-		return new TestEntity("configName11");
+		return new TestEntity("configName21");
 	}
 
-	@Bean(name="testEntityConfig12")
+	@Bean(name="testEntityConfig22")
 	public TestEntity testEntity2() {
 		HunterDebug.traceMessage();
 		
-		return new TestEntity("configName11", "configName12");
+		return new TestEntity("configName21", "configName22");
 	}
 }

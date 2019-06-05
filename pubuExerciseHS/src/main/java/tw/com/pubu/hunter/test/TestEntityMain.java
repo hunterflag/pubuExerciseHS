@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import tw.com.pubu.hunter.bean.TestEntity;
 import tw.com.pubu.hunter.config.TestEntityBeanConfig;
+import tw.com.pubu.hunter.config.TestEntityBeanConfig2;
 import tw.idv.hunter.tool.HunterDebug;
 
 @PropertySource("test.properties")
@@ -18,11 +19,11 @@ public class TestEntityMain {
 //		ApplicationContext ctx = new ClassPathXmlApplicationContext("TestEntityBeans.xml");
 		
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-		ctx.register(TestEntityBeanConfig.class);
+		ctx.register(TestEntityBeanConfig.class, TestEntityBeanConfig2.class);
 		ctx.refresh();
 		
-		TestEntity testEntity = ctx.getBean(TestEntity.class);
-//		TestEntity testEntity = (TestEntity) ctx.getBean("testEntity");
+//		TestEntity testEntity = ctx.getBean(TestEntity.class);
+		TestEntity testEntity = (TestEntity) ctx.getBean("testEntityConfig1");
 //		TestEntity testEntity = ctx.getBean("testEntity");
 
 		

@@ -23,10 +23,10 @@
 	<!-- </servlet-mapping> -->
 
 	<!-- needed for ContextLoaderListener -->
-	<!-- <context-param> -->
-	<!-- <param-name>contextConfigLocation</param-name> -->
-	<!-- <param-value>/WEB-INF/Beans.xml</param-value> -->
-	<!-- </context-param> -->
+<!-- 	<context-param> -->
+<!-- 	<param-name>contextConfigLocation</param-name> -->
+<!-- 	<param-value>/WEB-INF/Beans.xml</param-value> -->
+<!-- 	</context-param> -->
 
 	<!-- Bootstraps the root web application context before servlet initialization -->
 	<!-- <listener> -->

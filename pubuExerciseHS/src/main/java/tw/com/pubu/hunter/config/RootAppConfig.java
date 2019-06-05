@@ -42,9 +42,9 @@ public class RootAppConfig {
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		HunterDebug.traceMessage();
-		LocalSessionFactoryBean factory = new LocalSessionFactoryBean(); 
-		factory.setDataSource(dataSource());
-		factory.setPackagesToScan(new String[]{
+		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
+		factory.setDataSource(dataSource());	// 這裡是呼叫, 不是由容器產生
+		factory.setPackagesToScan(new String[]{		// Hibernate 掃描 Entity
 					"tw.com.pubu.hunter"
 				});
 		factory.setHibernateProperties(additionalProperties());
@@ -64,7 +64,7 @@ public class RootAppConfig {
 	
 	
 	@Bean(name="transactionManager")
-	@Autowired
+	@Autowired								// sessionFactory 由前一個 Bean 類別, 產生物件後, 注入至此
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
 		HunterDebug.traceMessage();
 		HibernateTransactionManager txManager = new HibernateTransactionManager();

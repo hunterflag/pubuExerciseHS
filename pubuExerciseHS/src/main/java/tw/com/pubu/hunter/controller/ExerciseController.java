@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,9 @@ import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 
 @Controller
 public class ExerciseController {
+	@Autowired
+	private CustomersService customersService;
+	
 	@RequestMapping(value= {"/", "/index"})
 	public String index(Model model) {
 		return "index";
@@ -45,13 +49,13 @@ public class ExerciseController {
 							@RequestParam(value="loginPwd", defaultValue="") String password) {
 		//登入檢查 (由 Hibernate 取資料庫)
 		LoginResult result = LoginResult.Error;
-		CustomersService service = new CustomersServiceImpl();
-		result = service.login(account, password);
+//		CustomersService service = new CustomersServiceImpl();
+		result = customersService.login(account, password);
 		
 		if(result == LoginResult.OK) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginName", account);
-			session.setAttribute("loginId", service.getIdByAccount(account));
+			session.setAttribute("loginId", customersService.getIdByAccount(account));
 		}
 
 		//回傳結果

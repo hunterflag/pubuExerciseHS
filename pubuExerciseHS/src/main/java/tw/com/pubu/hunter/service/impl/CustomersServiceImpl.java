@@ -1,5 +1,6 @@
 package tw.com.pubu.hunter.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,13 @@ import tw.com.pubu.hunter.service.CustomersService;
 @Service
 @Transactional
 public class CustomersServiceImpl implements CustomersService {
-
+	@Autowired
+	private CustomersDao dao;
+	
 	@Override
 	public LoginResult login(String account, String password) {
 		LoginResult result = LoginResult.Error;
-		CustomersDao dao = new CustomersDaoImpl();
+//		CustomersDao dao = new CustomersDaoImpl();
 		
 		//取得傳入值、確認有值
 		if(account.isEmpty() || password.isEmpty()) return result;
@@ -39,7 +42,7 @@ public class CustomersServiceImpl implements CustomersService {
 
 	public int getIdByAccount(String account) {
 		int id=0;
-		CustomersDao dao = new CustomersDaoImpl();
+//		CustomersDao dao = new CustomersDaoImpl();
 		id = dao.getIdByAccount(account);
 		return id;
 	}
