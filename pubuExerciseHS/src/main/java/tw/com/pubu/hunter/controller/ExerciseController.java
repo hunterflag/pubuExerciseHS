@@ -32,6 +32,14 @@ import tw.com.pubu.hunter.service.impl.ShoppingCartsServiceImpl;
 public class ExerciseController {
 	@Autowired
 	private CustomersService customersService;
+	@Autowired
+	private ProductsService productsService;
+	@Autowired
+	private ShoppingCartsService shoppingCartsService;
+	@Autowired
+	private OrdersService ordersService;
+	@Autowired
+	private OrderDetailsService orderDetailsService;
 	
 	@RequestMapping(value= {"/", "/index"})
 	public String index(Model model) {
@@ -79,8 +87,8 @@ public class ExerciseController {
 	
 	@RequestMapping(value="/showProductList", method=RequestMethod.GET)
 	public String showProductList(Model model, HttpServletRequest request) {
-		ProductsService service = new ProductsServiceImpl();
-		List<ProductsBean> list = service.getAlls();
+//		ProductsService service = new ProductsServiceImpl();
+		List<ProductsBean> list = productsService.getAlls();
 		
 //		request.setAttribute("pdts", list);
 		model.addAttribute("pdts", list);
@@ -91,10 +99,10 @@ public class ExerciseController {
 	public String addToShoppingCart(Model model,
 									@RequestParam(value="ctm_id", defaultValue="0") int ctm_id,
 									@RequestParam(value="pd_id", defaultValue="0") int pd_id) {
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		service.add(ctm_id, pd_id);
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		shoppingCartsService.add(ctm_id, pd_id);
 		
-		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
+		List<ShoppingCartsBean> list = shoppingCartsService.getItemsByCustomer(ctm_id);
 		model.addAttribute("scs", list);
 		return "showShoppingCart";
 	}
@@ -106,8 +114,8 @@ public class ExerciseController {
 		if(request.getSession().getAttribute("loginId") ==null) return "showShoppingCart";
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
 
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		List<ShoppingCartsBean> list = service.getItemsByCustomer(ctm_id);
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		List<ShoppingCartsBean> list = shoppingCartsService.getItemsByCustomer(ctm_id);
 		model.addAttribute("scs", list);
 		return "showShoppingCart";
 	}
@@ -115,8 +123,8 @@ public class ExerciseController {
 	@RequestMapping(value="/removeItemFromShoppingCart")
 	public String removeItemFromShoppingCart(
 							@RequestParam(name="sc_id", defaultValue="0") int sc_id){
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		service.removeById(sc_id);
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		shoppingCartsService.removeById(sc_id);
 		
 		return "showShoppingCart";
 	}
@@ -124,8 +132,8 @@ public class ExerciseController {
 	@RequestMapping(value="/clearShoppingCartByCustomer")
 	public String clearShoppingCartByCustomer(
 							@RequestParam(name="ctm_id", defaultValue="0") int ctm_id){
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		service.clearByCustomer(ctm_id);
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		shoppingCartsService.clearByCustomer(ctm_id);
 		
 		return "showShoppingCart";
 	}
@@ -134,8 +142,8 @@ public class ExerciseController {
 	public String updateShoppingCartItem(
 							@RequestParam(name="sc_id", defaultValue="0") int sc_id,
 							@RequestParam(name="sc_number", defaultValue="0") int sc_number){
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
-		service.updateNumberOfItem(sc_id, sc_number);
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+		shoppingCartsService.updateNumberOfItem(sc_id, sc_number);
 		
 		return "showShoppingCart";
 	}
@@ -146,9 +154,9 @@ public class ExerciseController {
 		if(request.getSession().getAttribute("loginId") == null) 
 			return "showShoppingCart";
 		
-		ShoppingCartsService service = new ShoppingCartsServiceImpl();
+//		ShoppingCartsService service = new ShoppingCartsServiceImpl();
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
-		service.ConfirmToOrder(ctm_id);
+		shoppingCartsService.ConfirmToOrder(ctm_id);
 		
 		return "showShoppingCart";
 	}
@@ -158,9 +166,9 @@ public class ExerciseController {
 		if(request.getSession().getAttribute("loginId") == null) 
 			return "showOrderList";
 		
-		OrdersService service = new OrdersServiceImpl();
+//		OrdersService service = new OrdersServiceImpl();
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
-		List<OrdersBean> list = service.getAllsByCustomer(ctm_id);
+		List<OrdersBean> list = ordersService.getAllsByCustomer(ctm_id);
 		model.addAttribute("ods", list);
 		
 		return "showOrderList";
@@ -169,8 +177,8 @@ public class ExerciseController {
 	@RequestMapping(value="/getOrderDetailsById", method=RequestMethod.GET)
 	public String getOrderDetailsById( Model model, 
 									@RequestParam(name="od_id", defaultValue="0") int od_id ){
-		OrderDetailsService service = new OrderDetailsServiceImpl();
-		List<OrderDetailsBean> list = service.getAllsById(od_id);
+//		OrderDetailsService service = new OrderDetailsServiceImpl();
+		List<OrderDetailsBean> list = orderDetailsService.getAllsById(od_id);
 		model.addAttribute("oddts", list);
 		
 		return "showOrderDetailsList";
