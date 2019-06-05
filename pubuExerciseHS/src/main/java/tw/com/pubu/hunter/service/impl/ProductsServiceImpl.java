@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.ProductsDao;
-import tw.com.pubu.hunter.dao.impl.ProductsDaoImpl;
 import tw.com.pubu.hunter.service.ProductsService;
 
 @Service
@@ -18,17 +17,14 @@ public class ProductsServiceImpl implements ProductsService {
 	private ProductsDao dao;
 
 	@Override
-	public List<ProductsBean> getAlls(){
+	public List<ProductsBean> getAlls() {
 		List<ProductsBean> list = null;
-//		ProductsDao dao = new ProductsDaoImpl();
 		list = dao.getAlls();
 		return list;
 	}
 
-	
 	public ProductsBean getById(int id) {
-		ProductsBean bean=null;
-//		ProductsDao dao = new ProductsDaoImpl();
+		ProductsBean bean = null;
 		bean = dao.getById(id);
 		return bean;
 	}
