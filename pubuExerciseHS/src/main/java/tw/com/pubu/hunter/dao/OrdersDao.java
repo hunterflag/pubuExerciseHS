@@ -6,9 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +16,6 @@ import tw.com.pubu.hunter.dao.OrdersDao;
 
 @Repository
 public class OrdersDao{
-//	@Autowired
-//	private SessionFactory factory;
 	
 	@PersistenceContext
 	private EntityManager session;
@@ -30,7 +25,6 @@ public class OrdersDao{
 	private CustomersDao ctmDao;
 
 	public Object insert(OrdersBean insObj) {
-//		Session session = factory.getCurrentSession();
 		Object key = null;
 		session.persist(insObj);
 		key = (Object) insObj.getOd_id(); 
@@ -46,7 +40,6 @@ public class OrdersDao{
 	}
 
 	public boolean update(int od_id, int od_total_price) {
-//		Session session = factory.getCurrentSession();
 		boolean isSuccess = false;
 
 		OrdersBean bean = session.find(OrdersBean.class, od_id);
@@ -58,7 +51,6 @@ public class OrdersDao{
 	}
 
 	public OrdersBean getById(Integer od_id) {
-//		Session session = factory.getCurrentSession();
 		OrdersBean result = null;
 
 		result = session.find(OrdersBean.class, od_id);
@@ -74,7 +66,6 @@ public class OrdersDao{
 	@SuppressWarnings("unchecked")
 	public List<OrdersBean> getAllsByCustomer(int ctmId) {
 		List<OrdersBean> result = null;
-//		Session session = factory.getCurrentSession();
 		String qryHqlStr = "FROM OrdersBean AS ob WHERE ob.ctmBean.ctm_id = :ctmId";
 		Query query = session.createQuery(qryHqlStr);
 		query.setParameter("ctmId", ctmId);
@@ -85,7 +76,6 @@ public class OrdersDao{
 	@SuppressWarnings("unchecked")
 	public List<OrdersBean> getAlls() {
 		List<OrdersBean> result = null;
-//		Session session = factory.getCurrentSession();
 		result = session.createQuery("FROM Orders").getResultList();
 		return result;
 	}

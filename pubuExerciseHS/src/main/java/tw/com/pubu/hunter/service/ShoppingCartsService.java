@@ -18,7 +18,6 @@ import tw.com.pubu.hunter.dao.ShoppingCartsDao;
 import tw.com.pubu.hunter.service.ShoppingCartsService;
 
 @Service
-@Transactional
 public class ShoppingCartsService{
 	@Autowired
 	private ShoppingCartsDao scDao;
@@ -74,7 +73,8 @@ public class ShoppingCartsService{
 	}
 
 	// 這裡用到 2 個 dao
-	public int ConfirmToOrder(int ctmId) { // 傳入客戶Id
+	@Transactional
+	public int confirmToOrder(int ctmId) { // 傳入客戶Id
 		int number = 0;
 		// 訂單 1: 先建立訂單編號、取得新增訂單的 oid
 		int od_id = (int) odDao.insert(ctmId);

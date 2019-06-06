@@ -6,11 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-//import org.hibernate.Session;
-//import org.hibernate.SessionFactory;
-//import org.hibernate.query.Query;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
@@ -18,8 +13,6 @@ import tw.com.pubu.hunter.dao.CustomersDao;
 
 @Repository
 public class CustomersDao{
-//	@Autowired
-//	private SessionFactory factory;
 	@PersistenceContext
 	private EntityManager session;
 
@@ -31,7 +24,6 @@ public class CustomersDao{
 		if (!isAccountExist(account))
 			return result; // 無此帳號
 
-//		Session session = factory.getCurrentSession();
 		String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
 		Query query = session.createQuery(qryHqlStr);
 		query.setParameter("account", account);
@@ -42,7 +34,6 @@ public class CustomersDao{
 	@SuppressWarnings("unchecked")
 	public boolean isAccountExist(String account) {
 		boolean result = false;
-//		Session session = factory.getCurrentSession();
 		String qryHqlStr = "FROM CustomersBean WHERE ctm_account = :account";
 		Query query = session.createQuery(qryHqlStr);
 		query.setParameter("account", account);
@@ -61,7 +52,6 @@ public class CustomersDao{
 
 	public CustomersBean getById(Integer id) {
 		CustomersBean bean = null;
-//		Session session = factory.getCurrentSession();
 		bean = (CustomersBean) session.find(CustomersBean.class, id);
 		return bean;
 	}

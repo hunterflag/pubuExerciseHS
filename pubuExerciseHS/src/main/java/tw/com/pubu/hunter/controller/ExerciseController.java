@@ -136,7 +136,7 @@ public class ExerciseController {
 			return "showShoppingCart";
 
 		int ctm_id = (int) request.getSession().getAttribute("loginId");
-		shoppingCartsService.ConfirmToOrder(ctm_id);
+		shoppingCartsService.confirmToOrder(ctm_id);
 
 		return "showShoppingCart";
 	}
