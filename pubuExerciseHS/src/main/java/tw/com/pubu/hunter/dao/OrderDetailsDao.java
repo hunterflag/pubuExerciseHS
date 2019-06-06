@@ -1,13 +1,49 @@
-package tw.com.pubu.hunter.dao;
+package tw.com.pubu.hunter.dao.impl;
 
 import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.OrderDetailsBean;
 import tw.com.pubu.hunter.bean.OrdersBean;
 import tw.com.pubu.hunter.bean.ProductsBean;
+import tw.com.pubu.hunter.dao.OrderDetailsDao;
 
-public interface OrderDetailsDao {
-	public Object insert(OrderDetailsBean insObj);
-	public Object insert(ProductsBean pdtBean, int number, int price, OrdersBean odBean);
-	public List<OrderDetailsBean> getAllsById(int od_id);
+@Repository
+public class OrderDetailsDaoImpl implements OrderDetailsDao {
+	@Autowired
+	private SessionFactory factory;
+
+	@Override
+	public Object insert(OrderDetailsBean insObj) {
+		Session session = factory.getCurrentSession();
+		Object key = null;
+
+		key = session.save(insObj);
+		return key;
+	}
+
+	@Override
+	public Object insert(ProductsBean pdtBean, int number, int price, OrdersBean odBean) {
+		Object key = null;
+		OrderDetailsBean insObj = new OrderDetailsBean(pdtBean, number, price, odBean);
+		key = insert(insObj);
+		return key;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderDetailsBean> getAllsById(int od_id) {
+		List<OrderDetailsBean> result = null;
+		Session session = factory.getCurrentSession();
+		String qryHqlStr = "FROM OrderDetailsBean AS oddtb WHERE oddtb.odBean.od_id = :od_id";
+		Query<OrderDetailsBean> query = session.createQuery(qryHqlStr);
+		query.setParameter("od_id", od_id);
+		result = query.getResultList();
+		return result;
+	}
 }
