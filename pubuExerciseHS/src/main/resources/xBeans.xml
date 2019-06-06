@@ -6,8 +6,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
-	<context:component-scan base-package="tw.com.pubu.hunter" />
+<!-- 	Spring 掃描 Bean 的原點-->
+<!-- 	<context:component-scan base-package="tw.com.pubu.hunter" /> -->
+	<context:component-scan base-package="tw.com.pubu.hunter.bean" />
 	
 	<bean id="customer3" class="tw.com.pubu.hunter.bean.CustomersBean">
 		<property name="ctm_account" value="3bean01" />
