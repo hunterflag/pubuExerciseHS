@@ -2,10 +2,14 @@ package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
+//import org.hibernate.query.Query;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.OrderDetailsBean;
@@ -15,14 +19,17 @@ import tw.com.pubu.hunter.dao.OrderDetailsDao;
 
 @Repository
 public class OrderDetailsDao{
-	@Autowired
-	private SessionFactory factory;
-
+//	@Autowired
+//	private SessionFactory factory;
+	
+	@PersistenceContext
+	private EntityManager session;
+	
 	public Object insert(OrderDetailsBean insObj) {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		Object key = null;
-
-		key = session.save(insObj);
+		session.persist(insObj);
+		key = (Object) insObj.getOddt_id(); 
 		return key;
 	}
 
@@ -36,9 +43,9 @@ public class OrderDetailsDao{
 	@SuppressWarnings("unchecked")
 	public List<OrderDetailsBean> getAllsById(int od_id) {
 		List<OrderDetailsBean> result = null;
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		String qryHqlStr = "FROM OrderDetailsBean AS oddtb WHERE oddtb.odBean.od_id = :od_id";
-		Query<OrderDetailsBean> query = session.createQuery(qryHqlStr);
+		Query query = session.createQuery(qryHqlStr);
 		query.setParameter("od_id", od_id);
 		result = query.getResultList();
 		return result;

@@ -2,9 +2,12 @@ package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tw.com.pubu.hunter.bean.ShoppingCartsBean;
@@ -12,22 +15,26 @@ import tw.com.pubu.hunter.dao.ShoppingCartsDao;
 
 @Repository
 public class ShoppingCartsDao{
-	@Autowired
-	private SessionFactory factory;
-
+//	@Autowired
+//	private SessionFactory factory;
+	
+	@PersistenceContext
+	private EntityManager session;
+	
 	public Object insert(ShoppingCartsBean insObj) {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		Object key = null;
 
-		key = session.save(insObj);
+		session.persist(insObj);
+		key = (Object) insObj.getSc_id();
 		return key;
 	}
 
 	public boolean delete(ShoppingCartsBean delObj) {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		boolean isSuccess = false;
 
-		session.delete(delObj);
+		session.remove(delObj);
 		isSuccess = true;
 
 		return isSuccess;
@@ -42,7 +49,7 @@ public class ShoppingCartsDao{
 
 	public int deleteAllByCustomer(int ctmId) {
 		int result = 0;
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 
 		String hqlStr = "DELETE FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId";
 		result = session.createQuery(hqlStr).setParameter("ctmId", ctmId).executeUpdate();
@@ -52,7 +59,7 @@ public class ShoppingCartsDao{
 
 	public boolean isItemExist(int ctmId, int pdId) {
 		boolean isExist = true;
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 
 		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId AND scb.pdtBean.pd_id = :pdId";
 		int no = session.createQuery(hqlStr).setParameter("ctmId", ctmId).setParameter("pdId", pdId).getResultList()
@@ -66,10 +73,10 @@ public class ShoppingCartsDao{
 	}
 
 	public ShoppingCartsBean getById(Integer id) {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		ShoppingCartsBean persistentBean = null;
 
-		persistentBean = (ShoppingCartsBean) session.get(ShoppingCartsBean.class, id);
+		persistentBean = (ShoppingCartsBean) session.find(ShoppingCartsBean.class, id);
 
 		return persistentBean;
 	}
@@ -81,7 +88,7 @@ public class ShoppingCartsDao{
 	@SuppressWarnings("unchecked")
 	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId) {
 		List<ShoppingCartsBean> result = null;
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 
 		String hqlStr = "FROM ShoppingCartsBean AS scb WHERE scb.ctmBean.ctm_id = :ctmId";
 		result = session.createQuery(hqlStr).setParameter("ctmId", ctmId).getResultList();
@@ -91,17 +98,17 @@ public class ShoppingCartsDao{
 	@SuppressWarnings("unchecked")
 	public List<ShoppingCartsBean> getAlls() {
 		List<ShoppingCartsBean> result = null;
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		result = session.createQuery("FROM ShoppingCartsBean").getResultList();
 
 		return result;
 	}
 
 	public boolean update(ShoppingCartsBean updObj) {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 		boolean isSuccess = false;
 
-		ShoppingCartsBean persistentBean = session.get(ShoppingCartsBean.class, updObj.getSc_id());
+		ShoppingCartsBean persistentBean = session.find(ShoppingCartsBean.class, updObj.getSc_id());
 		persistentBean.setCtmBean(updObj.getCtmBean());
 		persistentBean.setPdtBean(updObj.getPdtBean());
 		persistentBean.setSc_number(updObj.getSc_number());
