@@ -48,7 +48,6 @@ public class RootAppConfig {
 					"tw.com.pubu.hunter"
 				});
 		factory.setHibernateProperties(additionalProperties());
-		HunterDebug.showKeyValue("factory:", factory.toString());
 		return factory;
 	}	
 	private Properties additionalProperties() {

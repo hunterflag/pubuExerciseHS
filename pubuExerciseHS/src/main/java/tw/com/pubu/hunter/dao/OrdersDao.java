@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.dao.impl;
+package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
@@ -14,13 +14,12 @@ import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.dao.OrdersDao;
 
 @Repository
-public class OrdersDaoImpl implements OrdersDao {
+public class OrdersDao{
 	@Autowired
 	private SessionFactory factory;
 	@Autowired
 	private CustomersDao ctmDao;
 
-	@Override
 	public Object insert(OrdersBean insObj) {
 		Session session = factory.getCurrentSession();
 		Object key = null;
@@ -28,7 +27,6 @@ public class OrdersDaoImpl implements OrdersDao {
 		return key;
 	}
 
-	@Override
 	public Object insert(int ctm_id) {
 		CustomersBean ctmBean = ctmDao.getById(ctm_id);
 
@@ -37,7 +35,6 @@ public class OrdersDaoImpl implements OrdersDao {
 		return key;
 	}
 
-	@Override
 	public boolean update(int od_id, int od_total_price) {
 		Session session = factory.getCurrentSession();
 		boolean isSuccess = false;
@@ -50,7 +47,6 @@ public class OrdersDaoImpl implements OrdersDao {
 		return isSuccess;
 	}
 
-	@Override
 	public OrdersBean getById(Integer od_id) {
 		Session session = factory.getCurrentSession();
 		OrdersBean result = null;
@@ -59,7 +55,6 @@ public class OrdersDaoImpl implements OrdersDao {
 		return result;
 	}
 
-	@Override
 	public OrdersBean getById(int od_id) {
 		OrdersBean result = null;
 		result = getById(Integer.valueOf(od_id));
@@ -67,7 +62,6 @@ public class OrdersDaoImpl implements OrdersDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<OrdersBean> getAllsByCustomer(int ctmId) {
 		List<OrdersBean> result = null;
 		Session session = factory.getCurrentSession();
@@ -79,7 +73,6 @@ public class OrdersDaoImpl implements OrdersDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<OrdersBean> getAlls() {
 		List<OrdersBean> result = null;
 		Session session = factory.getCurrentSession();

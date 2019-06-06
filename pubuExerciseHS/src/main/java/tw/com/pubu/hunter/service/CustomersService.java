@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.service.impl;
+package tw.com.pubu.hunter.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,15 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.enums.LoginResult;
-import tw.com.pubu.hunter.service.CustomersService;
 
 @Service
 @Transactional
-public class CustomersServiceImpl implements CustomersService {
+public class CustomersService{
 	@Autowired
 	private CustomersDao dao;
 	
-	@Override
 	public LoginResult login(String account, String password) {
 		LoginResult result = LoginResult.Error;
 		

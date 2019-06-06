@@ -6,10 +6,10 @@ import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
-import tw.com.pubu.hunter.dao.impl.CustomersDaoImpl;
 import tw.com.pubu.hunter.utils.HibernateUtils;
 
 public class TestCustomers {
@@ -40,9 +40,11 @@ public class TestCustomers {
 		System.out.println("=========================================");
 	}
 	
+	@Autowired
+	CustomersDao dao;
 	@Test
 	public void testGetByAcc() {
-		CustomersDao dao = new CustomersDaoImpl();
+//		CustomersDao dao = new CustomersDaoImpl();
 		String account = "Tester1";
 
 		CustomersBean ctm =null;

@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.dao.impl;
+package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
@@ -11,11 +11,10 @@ import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.ProductsDao;
 
 @Repository
-public class ProductsDaoImpl implements ProductsDao {
+public class ProductsDao{
 	@Autowired
 	private SessionFactory factory;
 
-	@Override
 	public ProductsBean getById(Integer id) {
 		Session session = factory.getCurrentSession();
 		ProductsBean persistentBean = null;
@@ -24,13 +23,11 @@ public class ProductsDaoImpl implements ProductsDao {
 		return persistentBean;
 	}
 
-	@Override
 	public ProductsBean getById(int id) {
 		return getById(Integer.valueOf(id));
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ProductsBean> getAlls() {
 		List<ProductsBean> result = null;
 		Session session = factory.getCurrentSession();

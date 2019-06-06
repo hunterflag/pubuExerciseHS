@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.dao.impl;
+package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
@@ -14,11 +14,10 @@ import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.OrderDetailsDao;
 
 @Repository
-public class OrderDetailsDaoImpl implements OrderDetailsDao {
+public class OrderDetailsDao{
 	@Autowired
 	private SessionFactory factory;
 
-	@Override
 	public Object insert(OrderDetailsBean insObj) {
 		Session session = factory.getCurrentSession();
 		Object key = null;
@@ -27,7 +26,6 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 		return key;
 	}
 
-	@Override
 	public Object insert(ProductsBean pdtBean, int number, int price, OrdersBean odBean) {
 		Object key = null;
 		OrderDetailsBean insObj = new OrderDetailsBean(pdtBean, number, price, odBean);
@@ -36,7 +34,6 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<OrderDetailsBean> getAllsById(int od_id) {
 		List<OrderDetailsBean> result = null;
 		Session session = factory.getCurrentSession();

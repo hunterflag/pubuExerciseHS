@@ -30,8 +30,8 @@
 			<property name="hibernate.format_sql" value="true" />
 			
 <!-- 		Mapping -->
-			
-			<property name="packagesToScan" value="tw.com.pubu.hunter.service" />
+			<!-- 掃描 Entity.java 的套件位置 -->
+			<property name="packagesToScan" value="tw.com.pubu.hunter" />
 		</properties>
 <!-- 		<class>tw.com.pubu.hunter.bean.CustomersBean</class> -->
 	</persistence-unit>

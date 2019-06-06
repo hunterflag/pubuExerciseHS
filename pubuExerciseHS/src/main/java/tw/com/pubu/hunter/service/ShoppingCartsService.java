@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.service.impl;
+package tw.com.pubu.hunter.service;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import tw.com.pubu.hunter.service.ShoppingCartsService;
 
 @Service
 @Transactional
-public class ShoppingCartsServiceImpl implements ShoppingCartsService {
+public class ShoppingCartsService{
 	@Autowired
 	private ShoppingCartsDao scDao;
 	@Autowired
@@ -31,7 +31,6 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 	@Autowired
 	private OrderDetailsDao oddtDao;
 
-	@Override
 	public int add(int memberId, int productId) {
 		// 項目已存在, 不再重複加入
 		if (scDao.isItemExist(memberId, productId))
@@ -47,27 +46,23 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 		return Integer.valueOf(pk.toString());
 	}
 
-	@Override
 	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId) {
 		List<ShoppingCartsBean> list = scDao.getItemsByCustomer(ctmId);
 		return list;
 	}
 
-	@Override
 	public boolean removeById(int sc_id) {
 		boolean result = false;
 		result = scDao.delete(sc_id);
 		return result;
 	}
 
-	@Override
 	public int clearByCustomer(int ctmId) {
 		int result = 0;
 		result = scDao.deleteAllByCustomer(ctmId);
 		return result;
 	}
 
-	@Override
 	public boolean updateNumberOfItem(int sc_id, int newNumber) {
 
 		boolean result = false;
@@ -79,7 +74,6 @@ public class ShoppingCartsServiceImpl implements ShoppingCartsService {
 	}
 
 	// 這裡用到 2 個 dao
-	@Override
 	public int ConfirmToOrder(int ctmId) { // 傳入客戶Id
 		int number = 0;
 		// 訂單 1: 先建立訂單編號、取得新增訂單的 oid

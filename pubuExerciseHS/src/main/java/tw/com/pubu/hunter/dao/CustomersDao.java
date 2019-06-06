@@ -1,4 +1,4 @@
-package tw.com.pubu.hunter.dao.impl;
+package tw.com.pubu.hunter.dao;
 
 import java.util.List;
 
@@ -12,11 +12,10 @@ import tw.com.pubu.hunter.bean.CustomersBean;
 import tw.com.pubu.hunter.dao.CustomersDao;
 
 @Repository
-public class CustomersDaoImpl implements CustomersDao {
+public class CustomersDao{
 	@Autowired
 	private SessionFactory factory;
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public CustomersBean getByAccount(String account) {
 		CustomersBean result = null;
@@ -35,7 +34,6 @@ public class CustomersDaoImpl implements CustomersDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public boolean isAccountExist(String account) {
 		boolean result = false;
 		Session session = factory.getCurrentSession();
@@ -48,7 +46,6 @@ public class CustomersDaoImpl implements CustomersDao {
 		return result;
 	}
 
-	@Override
 	public int getIdByAccount(String account) {
 		int id = 0;
 		CustomersBean bean = getByAccount(account);
@@ -56,7 +53,6 @@ public class CustomersDaoImpl implements CustomersDao {
 		return id;
 	}
 
-	@Override
 	public CustomersBean getById(Integer id) {
 		CustomersBean bean = null;
 		Session session = factory.getCurrentSession();
@@ -64,7 +60,6 @@ public class CustomersDaoImpl implements CustomersDao {
 		return bean;
 	}
 
-	@Override
 	public CustomersBean getById(int id) {
 		return getById(Integer.valueOf(id));
 	}
