@@ -1,6 +1,9 @@
 package tw.com.pubu.hunter.service;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,7 @@ public class ShoppingCartsService{
 	@Autowired
 	private OrderDetailsDao oddtDao;
 
+	@Transactional
 	public int add(int memberId, int productId) {
 		// 項目已存在, 不再重複加入
 		if (scDao.isItemExist(memberId, productId))
@@ -45,23 +49,27 @@ public class ShoppingCartsService{
 		return Integer.valueOf(pk.toString());
 	}
 
+	@Transactional
 	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId) {
 		List<ShoppingCartsBean> list = scDao.getItemsByCustomer(ctmId);
 		return list;
 	}
 
+	@Transactional
 	public boolean removeById(int sc_id) {
 		boolean result = false;
 		result = scDao.delete(sc_id);
 		return result;
 	}
 
+	@Transactional
 	public int clearByCustomer(int ctmId) {
 		int result = 0;
 		result = scDao.deleteAllByCustomer(ctmId);
 		return result;
 	}
 
+	@Transactional
 	public boolean updateNumberOfItem(int sc_id, int newNumber) {
 
 		boolean result = false;
@@ -73,6 +81,7 @@ public class ShoppingCartsService{
 	}
 
 	// 這裡用到 2 個 dao
+//	@Transactional(rollbackFor=Exception.class)
 	@Transactional
 	public int confirmToOrder(int ctmId) { // 傳入客戶Id
 		int number = 0;
@@ -95,6 +104,16 @@ public class ShoppingCartsService{
 
 		// 移除購物車內容
 		scDao.deleteAllByCustomer(ctmId);
+		
+		//測試 rollback 能力
+		int i = 1/0; 		
+		if(true)
+			try {
+				throw new RuntimeException("Manual Test Exception for rollback");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		return number;
 	}

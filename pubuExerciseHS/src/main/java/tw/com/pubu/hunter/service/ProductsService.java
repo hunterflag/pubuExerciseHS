@@ -10,17 +10,18 @@ import tw.com.pubu.hunter.bean.ProductsBean;
 import tw.com.pubu.hunter.dao.ProductsDao;
 
 @Service
-@Transactional
 public class ProductsService{
 	@Autowired
 	private ProductsDao dao;
 
+	@Transactional
 	public List<ProductsBean> getAlls() {
 		List<ProductsBean> list = null;
 		list = dao.getAlls();
 		return list;
 	}
 
+	@Transactional
 	public ProductsBean getById(int id) {
 		ProductsBean bean = null;
 		bean = dao.getById(id);

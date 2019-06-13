@@ -11,17 +11,18 @@ import tw.com.pubu.hunter.dao.OrdersDao;
 import tw.com.pubu.hunter.service.OrdersService;
 
 @Service
-@Transactional
 public class OrdersService{
 	@Autowired
 	private OrdersDao dao;
 
+	@Transactional
 	public List<OrdersBean> getAllsByCustomer(int ctmId) {
 		List<OrdersBean> list = null;
 		list = dao.getAllsByCustomer(ctmId);
 		return list;
 	}
 
+	@Transactional
 	public List<OrdersBean> getAlls() {
 		List<OrdersBean> list = null;
 		list = dao.getAlls();

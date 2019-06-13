@@ -17,7 +17,6 @@ public class ShoppingCartsDao{
 	@PersistenceContext
 	private EntityManager session;
 	
-	@Transactional
 	public Object insert(ShoppingCartsBean insObj) {
 		Object key = null;
 
@@ -25,8 +24,7 @@ public class ShoppingCartsDao{
 		key = (Object) insObj.getSc_id();
 		return key;
 	}
-
-	@Transactional
+	
 	public boolean delete(ShoppingCartsBean delObj) {
 		boolean isSuccess = false;
 
@@ -36,7 +34,6 @@ public class ShoppingCartsDao{
 		return isSuccess;
 	}
 
-	@Transactional
 	public boolean delete(int id) {
 		boolean result = false;
 		ShoppingCartsBean sc = getById(id);
@@ -44,7 +41,6 @@ public class ShoppingCartsDao{
 		return result;
 	}
 
-//	@Transactional
 	public int deleteAllByCustomer(int ctmId) {
 		int result = 0;
 
@@ -54,7 +50,6 @@ public class ShoppingCartsDao{
 		return result;
 	}
 
-//	@Transactional
 	public boolean isItemExist(int ctmId, int pdId) {
 		boolean isExist = true;
 
@@ -69,7 +64,6 @@ public class ShoppingCartsDao{
 		return isExist;
 	}
 
-//	@Transactional
 	public ShoppingCartsBean getById(Integer id) {
 		ShoppingCartsBean persistentBean = null;
 
@@ -78,13 +72,11 @@ public class ShoppingCartsDao{
 		return persistentBean;
 	}
 
-//	@Transactional
 	public ShoppingCartsBean getById(int id) {
 		return getById(Integer.valueOf(id));
 	}
 
 	@SuppressWarnings("unchecked")
-//	@Transactional
 	public List<ShoppingCartsBean> getItemsByCustomer(int ctmId) {
 		List<ShoppingCartsBean> result = null;
 
@@ -94,7 +86,6 @@ public class ShoppingCartsDao{
 	}
 
 	@SuppressWarnings("unchecked")
-//	@Transactional
 	public List<ShoppingCartsBean> getAlls() {
 		List<ShoppingCartsBean> result = null;
 		result = session.createQuery("FROM ShoppingCartsBean").getResultList();
@@ -102,7 +93,7 @@ public class ShoppingCartsDao{
 		return result;
 	}
 
-//	@Transactional
+	
 	public boolean update(ShoppingCartsBean updObj) {
 		boolean isSuccess = false;
 

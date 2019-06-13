@@ -9,11 +9,11 @@ import tw.com.pubu.hunter.dao.CustomersDao;
 import tw.com.pubu.hunter.enums.LoginResult;
 
 @Service
-@Transactional
 public class CustomersService{
 	@Autowired
 	private CustomersDao dao;
 	
+	@Transactional
 	public LoginResult login(String account, String password) {
 		LoginResult result = LoginResult.Error;
 		
@@ -34,6 +34,7 @@ public class CustomersService{
 		return result;
 	}
 
+	@Transactional
 	public int getIdByAccount(String account) {
 		int id=0;
 		id = dao.getIdByAccount(account);
