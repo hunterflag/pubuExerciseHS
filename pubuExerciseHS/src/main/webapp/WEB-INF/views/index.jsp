@@ -23,5 +23,10 @@
 		ID: ${loginId} 號<br/>
 		 登入者: ${loginName}<br/> 
 	</div>
+	<hr/>
+	&lt;&nbsp;${pageContext.request.contextPath}: ${pageContext.request.contextPath}&nbsp;&gt;<br/>
+	&lt;&nbsp;${pageContext.request}: ${pageContext.request}&nbsp;&gt;<br/> 
+	&lt;&nbsp;${pageContext}: ${pageContext}&nbsp;&gt;<br/> 
+	
 </body>
 </html>
