@@ -13,7 +13,7 @@ import tw.com.pubu.hunter.dao.CustomersDao;
 
 @Repository
 public class CustomersDao{
-	@PersistenceContext
+	@PersistenceContext 
 	private EntityManager session;
 
 	public CustomersBean getByAccount(String account) {
