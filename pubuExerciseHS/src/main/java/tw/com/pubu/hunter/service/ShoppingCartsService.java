@@ -106,14 +106,14 @@ public class ShoppingCartsService{
 		scDao.deleteAllByCustomer(ctmId);
 		
 		//測試 rollback 能力
-		int i = 1/0; 		
-		if(true)
+		if(false) {
 			try {
+				int i = 1/0; 		
 				throw new RuntimeException("Manual Test Exception for rollback");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
 
 		return number;
 	}
