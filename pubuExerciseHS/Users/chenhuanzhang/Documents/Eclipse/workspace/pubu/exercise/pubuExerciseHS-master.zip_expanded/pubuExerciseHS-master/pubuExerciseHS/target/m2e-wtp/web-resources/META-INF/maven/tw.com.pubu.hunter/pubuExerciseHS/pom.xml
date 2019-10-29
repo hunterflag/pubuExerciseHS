@@ -9,7 +9,7 @@
 	<name>pubuExerciseHS Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<c3p0.version>0.9.5.2</c3p0.version>
+		<c3p0.version>0.9.5.4</c3p0.version>
 		<compiler.version>1.8</compiler.version>
 		<hibernate.version>5.4.2.Final</hibernate.version>
 		<junit.version>4.12</junit.version>
