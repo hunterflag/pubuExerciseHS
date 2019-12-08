@@ -21,7 +21,7 @@
 		<mysql.version>8.0.13</mysql.version>
 		<jsp.version>2.3.1</jsp.version>
 		<servlet.version>3.1.0</servlet.version>
-		<spring-data-jpa.version>2.1.2.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>2.1.9.RELEASE</spring-data-jpa.version>
 		<spring.version>5.1.4.RELEASE</spring.version>
 	</properties>
 
